@@ -5,6 +5,8 @@ import "./index.scss";
 import Home from "./Pages/Home/Home.jsx";
 import Login from "./Pages/Login/Login.jsx";
 import User from "./Pages/User/User.jsx";
+import Footer from "./Components/Footer/Footer.jsx";
+import Header from "./Components/Header/Header.jsx";
 
 // import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -17,10 +19,12 @@ import User from "./Pages/User/User.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
    <React.StrictMode>
+      <Header />
       <Home />
       <Login />
       <User />
       {/* <RouterProvider router={router} /> */}
+      <Footer />
    </React.StrictMode>
 );
 
