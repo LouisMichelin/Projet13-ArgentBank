@@ -24,6 +24,7 @@
     "server": "node ./server/server.js"
   },
   "devDependencies": {
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "sass": "^1.76.0"
   }
 }
