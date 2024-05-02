@@ -3,7 +3,9 @@ import "./Footer.scss";
 function Footer() {
    return (
       <>
-         <footer id="footer">Footer PAGE</footer>
+         <footer id="footer">
+            <p className="FooterCopyrights">Copyright 2020 Argent Bank</p>
+         </footer>
       </>
    );
 }
