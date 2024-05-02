@@ -3,24 +3,29 @@
    justify-content: space-between;
    flex-direction: row;
    align-items: center;
-   background-color: cyan;
-}
-.HeaderBankLogo {
-   height: 100%;
+   padding: 5px 20px 0px 20px;
 }
 .HeaderBankLogo img {
+   height: 100%;
    width: 200px;
 }
-
 .HeaderSignIn {
-   height: 100%;
-   background-color: lightcoral;
    display: flex;
    justify-content: center;
    flex-direction: row;
-   height: auto;
+   text-decoration: none;
+   margin-right: 0.5rem;
+   font-weight: bold;
+   color: #2c3e50;
+   margin-bottom: 5px;
 }
-.HeaderSignIn img {
+.HeaderSignIn:hover {
+   text-decoration: underline;
+   cursor: pointer;
+}
+
+.HeaderSignInLogo {
    width: 16px;
    height: 16px;
+   margin-right: 5px;
 }

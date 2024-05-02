@@ -1,6 +1,8 @@
 import "./Header.scss";
 import BankLogo from "../../../public/img/argentBankLogo.png";
-import UserLogo from "../../assets/circle-user-solid.svg";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 
 function Header() {
    return (
@@ -11,8 +13,11 @@ function Header() {
             </a>
 
             <a className="HeaderSignIn" href="/sign-in">
-               <img src={UserLogo} alt="" />
-               <span>Sign In</span>
+               <FontAwesomeIcon
+                  className="HeaderSignInLogo"
+                  icon={faCircleUser}
+               />
+               Sign In
             </a>
          </nav>
       </>
