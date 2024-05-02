@@ -1,36 +1,23 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-// import App from "./App.jsx";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./index.scss";
 import Home from "./Pages/Home/Home.jsx";
-import Login from "./Pages/Login/Login.jsx";
+import SignIn from "./Pages/SignIn/SignIn.jsx";
 import User from "./Pages/User/User.jsx";
 import Footer from "./Components/Footer/Footer.jsx";
 import Header from "./Components/Header/Header.jsx";
 
-// import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
-// const router = createBrowserRouter([
-//    {
-//       path: "/",
-//       element: <App />,
-//    },
-// ]);
-
 ReactDOM.createRoot(document.getElementById("root")).render(
    <React.StrictMode>
-      <Header />
-      <Home />
-      <Login />
-      <User />
-      {/* <RouterProvider router={router} /> */}
-      <Footer />
+      <Router>
+         <Header />
+         <Routes>
+            <Route path="/" index element={<Home />} />
+            <Route path="/sign-in" index element={<SignIn />} />
+            <Route path="/user" index element={<User />} />
+         </Routes>
+         <Footer />
+      </Router>
    </React.StrictMode>
 );
-
-/**
- * React-router-dom à setup pour switch d'une Page à l'autre
- * - Accueil
- * - Login
- * - User interface
- */

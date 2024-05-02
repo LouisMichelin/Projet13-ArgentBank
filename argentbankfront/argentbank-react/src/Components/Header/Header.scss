@@ -1,3 +1,26 @@
-.Header {
-   background-color: pink;
+#header {
+   display: flex;
+   justify-content: space-between;
+   flex-direction: row;
+   align-items: center;
+   background-color: cyan;
+}
+.HeaderBankLogo {
+   height: 100%;
+}
+.HeaderBankLogo img {
+   width: 200px;
+}
+
+.HeaderSignIn {
+   height: 100%;
+   background-color: lightcoral;
+   display: flex;
+   justify-content: center;
+   flex-direction: row;
+   height: auto;
+}
+.HeaderSignIn img {
+   width: 16px;
+   height: 16px;
 }
