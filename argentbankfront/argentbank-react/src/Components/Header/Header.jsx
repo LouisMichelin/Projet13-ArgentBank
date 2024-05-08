@@ -1,6 +1,5 @@
 import "./Header.scss";
 import BankLogo from "../../../public/img/argentBankLogo.png";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 

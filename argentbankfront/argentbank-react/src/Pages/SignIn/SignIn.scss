@@ -1,3 +1,22 @@
 .SignIn {
-   background-color: red;
+   background-color: #12002b;
+   display: flex;
+   justify-content: center;
+}
+.SignIn-Content {
+   box-sizing: border-box;
+   background-color: white;
+   width: 300px;
+   margin: 0 auto;
+   margin-top: 3rem;
+   padding: 2rem;
+}
+.SignIn-Content > * {
+   justify-content: center;
+   flex-direction: column;
+   text-align: center;
+}
+.SignIn-Logo {
+   position: relative;
+   width: calc(50% - 16px); // ICI A REPRENDRE
 }
