@@ -1,14 +1,27 @@
 #header {
    display: flex;
    justify-content: space-between;
-   flex-direction: row;
+   // flex-direction: row;
    align-items: center;
-   padding: 5px 20px 0px 20px;
+   padding: 5px 20px 1px 20px;
+   height: 100%;
 }
 .HeaderBankLogo img {
    height: 100%;
    width: 200px;
 }
+
+.sr-only {
+   position: absolute;
+   width: 1px;
+   height: 1px;
+   padding: 0;
+   margin: -1px;
+   overflow: hidden;
+   clip: rect(0, 0, 0, 0);
+   border: 0;
+}
+
 .HeaderSignIn {
    display: flex;
    justify-content: center;

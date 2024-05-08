@@ -10,6 +10,7 @@ function Header() {
          <nav id="header">
             <a className="HeaderBankLogo" href="/">
                <img src={BankLogo} alt="Logo de ArgentBank" />
+               <h1 className="sr-only">Argent Bank</h1>
             </a>
 
             <a className="HeaderSignIn" href="/sign-in">

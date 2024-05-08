@@ -1,41 +1,62 @@
 .Home {
-   background-color: green;
+   display: flex;
+   flex-direction: column;
+   text-align: center;
+}
+.HomeHero {
+   background-position: 0 -50px;
+   background-size: cover;
+   background-repeat: no-repeat;
+   height: 300px;
+   position: relative;
+   @media (min-width: 920px) {
+      height: 400px;
+      // position: absolute;
+      // top: 50px;
+      // right: 50px;
+      // width: 300px;
+      // margin: 2rem;
+   }
+}
+.HomeHero {
+   background-image: url(../../../public/img/bank-tree.jpeg);
+   object-fit: cover;
+   width: 100%;
+   height: 400px;
+   @media (min-width: 920px) {
+      background-position: 0% 33%;
+   }
 }
 
-.HomeSection1 {
-   // width: 100%;
-   height: 400px;
-   // object-fit: cover;
-   display: flex;
-   justify-content: space-between;
-   flex-direction: row;
-   align-items: center;
-}
-.HomeSection1-ImgContainer {
-   // width: 100%;
-}
-.HomeSection1-Img {
-   width: 100%;
-   max-height: 400px;
-   object-fit: cover;
-}
-.HomeSection1-Description {
+// .HomeSection1-Img {
+//    width: 100%;
+//    min-height: 300px;
+//    max-height: 400px;
+//    object-fit: cover;
+//    @media (min-width: 920px) {
+//       background-position: 0% 33%;
+//    }
+// }
+.HeroDescription {
    margin: 2rem;
    padding: 2rem;
    background-color: white;
-   position: absolute;
+   // position: absolute;
    // top: 50px;
    right: 50px;
    height: 200px;
    width: 300px;
 }
 ///////////////////////////////////////////////
-.HomeSection2 {
+.HomeFeatures {
    display: flex;
-   flex-direction: row;
+   flex-direction: column;
    background-color: yellow;
    width: 100%;
    height: 100px;
    // background-color: white;
    // position: absolute;
+   @media (min-width: 920px) {
+      flex-direction: row;
+   }
 }
