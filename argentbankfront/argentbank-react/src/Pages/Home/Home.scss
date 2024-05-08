@@ -1,51 +1,64 @@
+.sr-only {
+   position: absolute;
+   width: 1px;
+   height: 1px;
+   padding: 0;
+   margin: -1px;
+   overflow: hidden;
+   clip: rect(0, 0, 0, 0);
+   border: 0;
+}
 .Home {
    display: flex;
    flex-direction: column;
    text-align: center;
 }
 .HomeHero {
+   background-image: url(../../../public/img/bank-tree.jpeg);
    background-position: 0 -50px;
    background-size: cover;
    background-repeat: no-repeat;
+   object-fit: cover;
    height: 300px;
    position: relative;
    @media (min-width: 920px) {
       height: 400px;
-      // position: absolute;
-      // top: 50px;
-      // right: 50px;
-      // width: 300px;
-      // margin: 2rem;
-   }
-}
-.HomeHero {
-   background-image: url(../../../public/img/bank-tree.jpeg);
-   object-fit: cover;
-   width: 100%;
-   height: 400px;
-   @media (min-width: 920px) {
       background-position: 0% 33%;
    }
 }
-
-// .HomeSection1-Img {
-//    width: 100%;
-//    min-height: 300px;
-//    max-height: 400px;
-//    object-fit: cover;
-//    @media (min-width: 920px) {
-//       background-position: 0% 33%;
-//    }
-// }
-.HeroDescription {
-   margin: 2rem;
+.HomeHero-Content {
+   position: relative;
+   background: white;
+   text-align: left;
+   text-align: left;
+   top: 2rem;
+   width: 200px;
    padding: 2rem;
-   background-color: white;
-   // position: absolute;
-   // top: 50px;
-   right: 50px;
-   height: 200px;
-   width: 300px;
+   margin: 0 auto;
+   @media (min-width: 920px) {
+      position: absolute;
+      top: 50px;
+      right: 50px;
+      width: 300px;
+      margin: 2rem;
+   }
+}
+.HomeHero-Subtitle {
+   font-weight: bold;
+   font-size: 1rem;
+   margin: 0;
+   @media (min-width: 920px) {
+      font-size: 1.5rem;
+   }
+}
+.HomeHero-Text {
+   font-size: 0.9rem;
+   margin-top: 0.9rem;
+   margin-bottom: 0;
+   @media (min-width: 920px) {
+      font-size: 1.2rem;
+      margin-top: 1.2rem;
+   }
 }
 ///////////////////////////////////////////////
 .HomeFeatures {
