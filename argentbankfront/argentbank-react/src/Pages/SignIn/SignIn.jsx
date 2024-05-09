@@ -10,18 +10,29 @@ function SignIn() {
                <FontAwesomeIcon className="SignIn-Logo" icon={faCircleUser} />
                <h1>Sign In</h1>
                <form>
-                  <div>
-                     <label htmlFor=""></label>
-                     <input type="text" />
+                  <div className="SignIn-InputWrapper">
+                     <label htmlFor="username">Username</label>
+                     <input
+                        className="SignIn-InputArea"
+                        type="text"
+                        id="username"
+                     />
                   </div>
-                  <div>
-                     <label htmlFor=""></label>
-                     <input type="text" />
+                  <div className="SignIn-InputWrapper">
+                     <label htmlFor="password">Password</label>
+                     <input
+                        className="SignIn-InputArea"
+                        type="password"
+                        id="password"
+                     />
                   </div>
-                  <div>
-                     <label htmlFor=""></label>
-                     <input type="text" />
+                  <div className="SignIn-InputRemember">
+                     <input type="checkbox" id="remember-me" />
+                     <label htmlFor="remember-me">Remember me</label>
                   </div>
+                  <a href="./user.html" className="SignIn-Button">
+                     Sign In
+                  </a>
                </form>
             </section>
          </main>

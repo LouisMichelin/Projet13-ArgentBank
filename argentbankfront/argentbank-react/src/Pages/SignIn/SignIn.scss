@@ -2,21 +2,56 @@
    background-color: #12002b;
    display: flex;
    justify-content: center;
+   // align-items: stretch;
 }
 .SignIn-Content {
+   // position: absolute;
    box-sizing: border-box;
    background-color: white;
    width: 300px;
-   margin: 0 auto;
    margin-top: 3rem;
+   margin-bottom: auto;
    padding: 2rem;
+}
+.SignIn-Logo {
+   position: relative;
+   left: calc(50% - 8px);
 }
 .SignIn-Content > * {
    justify-content: center;
    flex-direction: column;
    text-align: center;
 }
-.SignIn-Logo {
-   position: relative;
-   width: calc(50% - 16px); // ICI A REPRENDRE
+form * {
+   text-align: left;
+}
+/* INPUT : AREAS USERNAME & PASSWORD */
+.SignIn-InputWrapper label {
+   font-weight: bold;
+}
+.SignIn-InputWrapper input {
+   width: 222px;
+   margin-bottom: 1rem;
+   padding: 5px;
+   font-size: 1.2rem;
+}
+/* INPUT : BOUTON REMEMBER */
+
+.SignIn-InputRemember label {
+   position: fixed;
+   padding-bottom: 10px;
+   margin-left: 0.25rem;
+}
+/* SEND FORM */
+.SignIn-Button {
+   display: flex;
+   justify-content: center;
+   width: 100%;
+   padding: 8px;
+   font-size: 1.1rem;
+   font-weight: bold;
+   margin-top: 15px;
+   border-color: #00bc77;
+   background-color: #00bc77;
+   color: #fff;
 }

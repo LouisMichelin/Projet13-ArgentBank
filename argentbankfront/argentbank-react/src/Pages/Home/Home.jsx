@@ -1,7 +1,7 @@
 import "./Home.scss";
-import IconChat from "../../../public/img/icon-chat.png";
-import IconMoney from "../../../public/img/icon-money.png";
-import IconSecurity from "../../../public/img/icon-security.png";
+import IconChat from "/img/icon-chat.png";
+import IconMoney from "/img/icon-money.png";
+import IconSecurity from "/img/icon-security.png";
 
 function Home() {
    return (
