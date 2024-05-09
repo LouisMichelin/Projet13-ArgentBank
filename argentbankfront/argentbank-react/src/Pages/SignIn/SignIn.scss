@@ -2,10 +2,10 @@
    background-color: #12002b;
    display: flex;
    justify-content: center;
-   // align-items: stretch;
+   // flex: 1 1 auto; !!!!!!!!!!!!!!!! PEUT ETRE UNE PISTE ??????
 }
+
 .SignIn-Content {
-   // position: absolute;
    box-sizing: border-box;
    background-color: white;
    width: 300px;
@@ -38,7 +38,7 @@ form * {
 /* INPUT : BOUTON REMEMBER */
 
 .SignIn-InputRemember label {
-   position: fixed;
+   position: fixed; /* !!!!!!!!!!!!!!!!!!!!!!!!!! A EDITER */
    padding-bottom: 10px;
    margin-left: 0.25rem;
 }

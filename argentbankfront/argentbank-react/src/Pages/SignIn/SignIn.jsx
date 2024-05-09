@@ -30,7 +30,7 @@ function SignIn() {
                      <input type="checkbox" id="remember-me" />
                      <label htmlFor="remember-me">Remember me</label>
                   </div>
-                  <a href="./user.html" className="SignIn-Button">
+                  <a href="/user" className="SignIn-Button">
                      Sign In
                   </a>
                </form>
