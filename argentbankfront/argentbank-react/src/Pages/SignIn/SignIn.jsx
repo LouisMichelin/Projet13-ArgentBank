@@ -30,10 +30,10 @@ function SignIn() {
                      <input type="checkbox" id="remember-me" />
                      <label htmlFor="remember-me">Remember me</label>
                   </div>
-                  {/* <button href="/user" className="SignIn-Button"> */}
                   <button
                      onClick={() => alert("hello world")}
                      className="SignIn-Button"
+                     // href="/user"
                   >
                      Sign In
                   </button>

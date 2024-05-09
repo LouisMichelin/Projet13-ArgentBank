@@ -1,3 +1,46 @@
+.sr-only {
+   position: absolute;
+   width: 1px;
+   height: 1px;
+   padding: 0;
+   margin: -1px;
+   overflow: hidden;
+   clip: rect(0, 0, 0, 0);
+   border: 0;
+}
+
 .User {
-   background-color: blue;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   // justify-content: center;
+   background-color: #12002b;
+   height: calc(100vh - 64.375px - 76px);
+   margin: 0;
+   overflow: auto;
+}
+.User-Header {
+   display: flex;
+   flex-direction: column;
+}
+.UserAccount {
+   // display: flex;
+   // flex-direction: row;
+   // background-color: #fff;
+   // margin-bottom: 2rem;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   border: 1px solid black;
+   background-color: #fff;
+   width: 80%;
+   margin: 0 auto;
+   flex-direction: row;
+   padding: 1.5rem;
+   box-sizing: border-box;
+   text-align: left;
+   margin-bottom: 2rem;
+}
+.UserAccount-ContentWrapper {
+   height: 81px;
 }
