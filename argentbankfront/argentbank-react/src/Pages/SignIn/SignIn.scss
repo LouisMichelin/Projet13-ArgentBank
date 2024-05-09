@@ -2,9 +2,8 @@
    background-color: #12002b;
    display: flex;
    justify-content: center;
-   // flex: 1 1 auto; !!!!!!!!!!!!!!!! PEUT ETRE UNE PISTE ??????
+   height: calc(100vh - 64.375px - 76px);
 }
-
 .SignIn-Content {
    box-sizing: border-box;
    background-color: white;
@@ -12,20 +11,17 @@
    margin-top: 3rem;
    margin-bottom: auto;
    padding: 2rem;
-}
-.SignIn-Logo {
-   position: relative;
-   left: calc(50% - 8px);
-}
-.SignIn-Content > * {
-   justify-content: center;
-   flex-direction: column;
    text-align: center;
 }
-form * {
+/*
+FORMULAIRE
+*/
+form {
    text-align: left;
 }
-/* INPUT : AREAS USERNAME & PASSWORD */
+/*
+INPUT : AREAS USERNAME & PASSWORD
+*/
 .SignIn-InputWrapper label {
    font-weight: bold;
 }
@@ -35,23 +31,28 @@ form * {
    padding: 5px;
    font-size: 1.2rem;
 }
-/* INPUT : BOUTON REMEMBER */
-
+/*
+INPUT : CASE "REMEMBER ME"
+*/
 .SignIn-InputRemember label {
-   position: fixed; /* !!!!!!!!!!!!!!!!!!!!!!!!!! A EDITER */
+   position: fixed;
    padding-bottom: 10px;
    margin-left: 0.25rem;
 }
-/* SEND FORM */
+/*
+SEND FORM : BUTTON
+*/
 .SignIn-Button {
    display: flex;
    justify-content: center;
-   width: 100%;
+   width: calc(100% + 16px);
    padding: 8px;
    font-size: 1.1rem;
    font-weight: bold;
    margin-top: 15px;
-   border-color: #00bc77;
+   border: 0;
    background-color: #00bc77;
    color: #fff;
+   cursor: pointer;
+   text-decoration: underline;
 }
