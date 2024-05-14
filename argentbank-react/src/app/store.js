@@ -1,12 +1,7 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { counterSlice } from "../features/counter/counterSlice";
-
-let state = {
-   counter: {},
-};
+import { configureStore } from "@reduxjs/toolkit";
+import counterSlice from "../features/counter/counterSlice";
 
 export const store = configureStore({
-   preloadedState: state,
    reducer: {
       counter: counterSlice,
    },
