@@ -12,7 +12,7 @@ function Header() {
                <h1 className="sr-only">Argent Bank</h1>
             </a>
 
-            <a className="HeaderSignIn" href="/sign-in">
+            <a className="HeaderSignIn" href="/login">
                <FontAwesomeIcon
                   className="HeaderSignInLogo"
                   icon={faCircleUser}
