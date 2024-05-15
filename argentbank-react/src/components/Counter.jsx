@@ -1,32 +1,45 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { decrement, increment } from "../features/counter/counterSlice";
-import { fetchUsers } from "../features/counter/counterSlice";
+// import { fetchUsers } from "../features/counter/counterSlice";
 import { useState } from "react";
 import axios from "axios";
 
 const Counter = () => {
    // const [users, setUsers] = useState([]);
    const [userData, setUserData] = useState([]);
-
+   //////////////////////////////////////////////////////////////////
    useEffect(() => {
       const fetchData = async () => {
-         await axios.get("http://localhost:3001/").then((res) => {
-            setUserData(res.data);
-            console.log(userData);
-         });
+         await axios
+            .get("http://127.0.0.1/argentBankDB/")
+            .then((users) => {
+               setUserData(users.data);
+               console.log(userData);
+            })
+            .catch((err) => console.log(err));
       };
       fetchData();
    }, []);
 
    //////////////////////////////////////////////////////////////////
+   //////////////////////////////////////////////////////////////////
+   // useEffect(() => {
+   //    const getAds = async () => {
+   //       const res = await axios.get("127.0.0.1:3001");
+   //       console.log(res.data);
+   //    };
+   //    getAds();
+   // }, []);
+   //////////////////////////////////////////////////////////////////
+   //////////////////////////////////////////////////////////////////
    const dispatch = useDispatch();
    const totalCounter = useSelector((state) => state.counter.totalCounter);
    // const user = useSelector((state) => state.user);
 
-   useEffect(() => {
-      dispatch(fetchUsers());
-   }, []);
+   // useEffect(() => {
+   //    dispatch(fetchUsers());
+   // }, []);
    //////////////////////////////////////////////////////////////////
    return (
       <>
@@ -52,6 +65,9 @@ const Counter = () => {
                </ul>
             ) : null} */}
             {/* <div key={user.id}>{user.name}</div> */}
+            <div>{userData.firstName}</div>
+            <div>{userData.lastName}</div>
+            <div>{userData.email}</div>
          </div>
       </>
    );

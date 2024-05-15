@@ -1,11 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+// import axios from "axios";
 
-const test = [{ name: "Bobleponge" }, { name: "Garry" }];
-
-export const fetchUsers = createAsyncThunk("user/fetchUsers", () => {
-   return axios.get(test).then((response) => response.data);
-});
+// export const fetchUsers = createAsyncThunk("user/fetchUsers", () => {
+//    return axios.get("http://localhost:3001/argentBankDB").then((response) => response.data);
+// });
 
 const initialState = {
    totalCounter: 0,
@@ -24,21 +22,21 @@ export const counterSlice = createSlice({
          state.totalCounter--;
       },
    },
-   extraReducers: (builder) => {
-      builder.addCase(fetchUsers.pending, (state) => {
-         state.loading = true;
-      });
-      builder.addCase(fetchUsers.fulfilled, (state, action) => {
-         state.loading = false;
-         state.users = action.payload;
-         state.error = "";
-      });
-      builder.addCase(fetchUsers.rejected, (state, action) => {
-         state.loading = false;
-         state.users = [];
-         state.error = action.error.message;
-      });
-   },
+   // extraReducers: (builder) => {
+   //    builder.addCase(fetchUsers.pending, (state) => {
+   //       state.loading = true;
+   //    });
+   //    builder.addCase(fetchUsers.fulfilled, (state, action) => {
+   //       state.loading = false;
+   //       state.users = action.payload;
+   //       state.error = "";
+   //    });
+   //    builder.addCase(fetchUsers.rejected, (state, action) => {
+   //       state.loading = false;
+   //       state.users = [];
+   //       state.error = action.error.message;
+   //    });
+   // },
 });
 
 export default counterSlice.reducer;
