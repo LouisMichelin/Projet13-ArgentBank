@@ -9,18 +9,17 @@ const Counter = () => {
    // const [users, setUsers] = useState([]);
    const [userData, setUserData] = useState([]);
    //////////////////////////////////////////////////////////////////
-   useEffect(() => {
-      const fetchData = async () => {
-         await axios
-            .get("http://127.0.0.1/argentBankDB/")
-            .then((users) => {
-               setUserData(users.data);
-               console.log(userData);
-            })
-            .catch((err) => console.log(err));
-      };
-      fetchData();
-   }, []);
+
+   // useEffect(() => {
+   //    const fetchData = async () => {
+   //       const { test123 } = await axios.get(
+   //          "http://localhost:3001/api/v1/user"
+   //       );
+   //       setUserData(test123);
+   //       console.log(userData);
+   //    };
+   //    fetchData();
+   // }, []);
 
    //////////////////////////////////////////////////////////////////
    //////////////////////////////////////////////////////////////////
@@ -65,9 +64,9 @@ const Counter = () => {
                </ul>
             ) : null} */}
             {/* <div key={user.id}>{user.name}</div> */}
-            <div>{userData.firstName}</div>
+            {/* <div>{userData.firstName}</div>
             <div>{userData.lastName}</div>
-            <div>{userData.email}</div>
+            <div>{userData.email}</div> */}
          </div>
       </>
    );
