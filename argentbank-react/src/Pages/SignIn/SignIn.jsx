@@ -42,11 +42,19 @@ function SignIn() {
       // alert(`Hello ${userName}`);
       // axios.get("http://127.0.0.1:3001/user/profile").then((res) => {
       // axios.get("https://api.quotable.io/random").then((res) => {
-      axios.get("http://127.0.0.1:3001/user/profile").then((res) => {
-         console.log(res);
-      });
+      axios
+         .post("http://127.0.0.1:3001/user/profile", {
+            firstName: "Tony",
+            lastName: "Stark",
+         })
+         .then((response) => console.log(response))
+         .catch((err) => {
+            console.error("Error response:");
+            console.error(err.response.data); // ***
+            console.error(err.response.status); // ***
+            console.error(err.response.headers); // ***
+         });
    };
-
    return (
       <>
          <main className="SignIn">
