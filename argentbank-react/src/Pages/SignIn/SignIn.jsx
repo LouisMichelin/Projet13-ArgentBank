@@ -4,69 +4,56 @@ import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import Counter from "../../components/Counter";
 import axios from "axios";
+// import { loginUser } from "../../../../server/services/userService";
 
 function SignIn() {
    const [userName, setUserName] = useState("");
    const [userPassword, setUserPassword] = useState("");
-   const [reponseTest, setReponseTest] = useState();
 
-   // useEffect(() => {
-   //    axios(
-   //       {
-   //          method: "get",
-   //          url: "http://127.0.0.1:3001/user/profile",
-   //          // data: {
-   //          //    firstName: "Tony",
-   //          //    lastName: "Stark",
-   //          // },
-   //       },
-   //       {
-   //          headers: {
-   //             "Content-type": "application/json; charset=UTF-8",
-   //          },
-   //       }
-   //    )
-   //       .then((res) => {
-   //          console.log(res.data);
-   //       })
-   //       .catch((err) => console.log(err));
-   // }, []);
-
-   // "http://127.0.0.1:3001/user/profile",
+   ///////////////////////////////////////////////////////////////
+   // const config = {
+   //    headers: { Authorization: `Bearer ${loginUser()}` },
+   // };
+   // {
+   //    headers: {
+   //       Authorization: "663b7f5c60fc002b9451896d",
+   //    },
+   // }
+   ///////////////////////////////////////////////////////////////
+   // "http://127.0.0.1:3001/api/v1/user/profile"
    // $2b$12$J0E/JNLsQana4HSFLYCoceseDqOOypwE568vMswOPKuRwU2gpPmpO
    ///////////////////////////////////////////////////////////////
 
-   const handleSubmit = () => {
-      // alert("oui ça marche tkt");
-      // event.preventDefault();
-      // alert(`Hello ${userName}`);
-      // axios.get("http://127.0.0.1:3001/user/profile").then((res) => {
-      // axios.get("https://api.quotable.io/random").then((res) => {
+   const handleSubmit = async (event) => {
+      event.preventDefault();
+      // console.log("user, pw: ", userName, userPassword);
 
-      // "http://127.0.0.1:3001/api/v1/user/profile"
+      const API_URL = "http://127.0.0.1:3001/api/v1/user/login";
 
-      axios
-         .get("http://127.0.0.1:3001/api/v1/user/profile")
-         .then((response) => console.log(response))
-         .catch((err) => {
-            console.error("Error response:");
-            console.error(err.response.data); // ***
-            console.error(err.response.status); // ***
-            console.error(err.response.headers); // ***
+      await axios
+         .post(API_URL)
+         .then((response) => {
+            console.log(response);
+            console.log(userName, userPassword);
+         })
+         .catch((error) => {
+            console.log(userName, userPassword);
+            console.log(error);
          });
    };
+
    return (
       <>
          <main className="SignIn">
             <Counter />
-            <div>
-               <button onClick={handleSubmit}>CLICK ICI TKT</button>
-            </div>
+            {/* <div>
+               <button onClick={handleSubmit}>CLICK ICI</button>
+            </div> */}
             <section className="SignIn-Content">
                <FontAwesomeIcon className="SignIn-Logo" icon={faCircleUser} />
                <h1>Sign In</h1>
-               {/* <form onSubmit={handleSubmit}> */}
-               <form>
+               <form onSubmit={(e) => handleSubmit(e)}>
+                  {/* <form> */}
                   <div className="SignIn-InputWrapper">
                      <label htmlFor="username">Username</label>
                      <input

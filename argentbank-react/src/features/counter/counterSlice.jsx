@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-// import axios from "axios";
 
 // export const fetchUsers = createAsyncThunk("user/fetchUsers", () => {
 //    return axios.get("http://localhost:3001/argentBankDB").then((response) => response.data);
