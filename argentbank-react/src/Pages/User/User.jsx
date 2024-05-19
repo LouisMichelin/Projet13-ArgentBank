@@ -1,12 +1,58 @@
+import { useState, useEffect } from "react";
 import "./User.scss";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function User() {
+   const [userFirstName, setUserFirstName] = useState("default");
+   const [userLastName, setUserLastName] = useState("default");
+   const redirect = useNavigate();
+
+   const items = localStorage.getItem("userToken");
+   console.log("Token PROFILE: ", items);
+
+   const profileFetcher = async () => {
+      // URL PROFILE
+      const API_URL = "http://127.0.0.1:3001/api/v1/user/profile";
+      await axios
+         .post(API_URL, {
+            headers: {
+               Authorization: "Bearer " + items,
+            },
+         })
+         .then((response) => {
+            if (response.status === 200) {
+               console.log("USER GG:", response);
+
+               const firstname = response.data.body.firstName;
+               localStorage.setItem("prenom", firstname);
+               setUserFirstName(localStorage.getItem("prenom"));
+
+               const lastname = response.data.body.lastName;
+               localStorage.setItem("nom", lastname);
+               setUserLastName(localStorage.getItem("nom"));
+            }
+         })
+         .catch((error) => {
+            console.log(error);
+         });
+   };
+
+   useEffect(() => {
+      if (items === undefined) {
+         redirect("/");
+      }
+      if (items) {
+         profileFetcher();
+      }
+   }, [items]);
+
    return (
       <>
          <main className="User">
             <div className="User-Header">
                <h1>
-                  Welcome back <br /> Tony Jarvis!
+                  Welcome back <br /> {userFirstName} {userLastName}!
                </h1>
                <button className="User-EditButton">Edit Name</button>
             </div>
