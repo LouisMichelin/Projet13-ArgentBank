@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { decrement, increment } from "../features/counter/counterSlice";
+import { decrement, increment } from "./counterSlice";
 // import { fetchUsers } from "../features/counter/counterSlice";
 
 const Counter = () => {

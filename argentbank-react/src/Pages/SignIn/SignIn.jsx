@@ -2,7 +2,7 @@ import "./SignIn.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
-import Counter from "../../components/Counter";
+import Counter from "../../redux/slices/counter/Counter";
 import axios from "axios";
 // import { loginUser } from "../../../../server/services/userService";
 
@@ -31,7 +31,10 @@ function SignIn() {
       const API_URL = "http://127.0.0.1:3001/api/v1/user/login";
 
       await axios
-         .post(API_URL)
+         .post(API_URL, {
+            email: userName,
+            password: userPassword,
+         })
          .then((response) => {
             console.log(response);
             console.log(userName, userPassword);
