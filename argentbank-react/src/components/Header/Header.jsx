@@ -1,9 +1,25 @@
 import "./Header.scss";
 import BankLogo from "/img/argentBankLogo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
+import {
+   faCircleUser,
+   faRightFromBracket,
+} from "@fortawesome/free-solid-svg-icons";
+import { useState, useEffect } from "react";
 
 function Header() {
+   const [signIn, setSignIn] = useState(true);
+   const [userFirstName, setUserFirstName] = useState("Name");
+
+   const userToken = localStorage.getItem("userToken");
+
+   useEffect(() => {
+      if (userToken) {
+         setSignIn(false);
+         setUserFirstName(localStorage.getItem("prenom"));
+      }
+   }, [userToken]);
+
    return (
       <>
          <nav id="header">
@@ -12,13 +28,37 @@ function Header() {
                <h1 className="sr-only">Argent Bank</h1>
             </a>
 
-            <a className="HeaderSignIn" href="/login">
-               <FontAwesomeIcon
-                  className="HeaderSignInLogo"
-                  icon={faCircleUser}
-               />
-               Sign In
-            </a>
+            <div className="HeaderProfileAndSignin">
+               {!signIn && (
+                  <a className="HeaderSignIn" href="/user">
+                     <FontAwesomeIcon
+                        className="HeaderSignOutLogo"
+                        icon={faCircleUser}
+                     />
+                     {localStorage.getItem("userToken") && userFirstName}
+                  </a>
+               )}
+
+               <a className="HeaderSignIn" href="/login">
+                  {signIn ? (
+                     <span>
+                        <FontAwesomeIcon
+                           className="HeaderSignInLogo"
+                           icon={faCircleUser}
+                        />
+                        Sign In
+                     </span>
+                  ) : (
+                     <span>
+                        <FontAwesomeIcon
+                           className="HeaderSignInLogo"
+                           icon={faRightFromBracket}
+                        />
+                        Sign Out
+                     </span>
+                  )}
+               </a>
+            </div>
          </nav>
       </>
    );

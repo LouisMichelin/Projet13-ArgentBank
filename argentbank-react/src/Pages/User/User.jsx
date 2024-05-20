@@ -4,11 +4,19 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function User() {
-   const [userFirstName, setUserFirstName] = useState("default");
-   const [userLastName, setUserLastName] = useState("default");
-   const redirect = useNavigate();
-
+   // Firstname depuis localStorage
+   const [userFirstName, setUserFirstName] = useState(
+      localStorage.getItem("prenom")
+         ? localStorage.getItem("prenom")
+         : "unknown"
+   );
+   // Lastname depuis localStorage
+   const [userLastName, setUserLastName] = useState(
+      localStorage.getItem("nom") ? localStorage.getItem("nom") : "unknown"
+   );
    const items = localStorage.getItem("userToken");
+
+   const redirect = useNavigate();
    console.log("Token PROFILE: ", items);
 
    const profileFetcher = async () => {
@@ -23,11 +31,11 @@ function User() {
          .then((response) => {
             if (response.status === 200) {
                console.log("USER GG:", response);
-
+               // Setup Firstname
                const firstname = response.data.body.firstName;
                localStorage.setItem("prenom", firstname);
                setUserFirstName(localStorage.getItem("prenom"));
-
+               // Setup Lastname
                const lastname = response.data.body.lastName;
                localStorage.setItem("nom", lastname);
                setUserLastName(localStorage.getItem("nom"));
@@ -38,6 +46,7 @@ function User() {
          });
    };
 
+   // REVOIR CE USEEFFECT()
    useEffect(() => {
       if (items === undefined) {
          redirect("/");

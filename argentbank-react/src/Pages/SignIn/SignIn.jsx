@@ -1,7 +1,7 @@
 import "./SignIn.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Counter from "../../redux/slices/counter/Counter";
 import axios from "axios";
@@ -16,7 +16,6 @@ function SignIn() {
       event.preventDefault();
       // URL LOGIN
       const API_URL = "http://127.0.0.1:3001/api/v1/user/login";
-      // FETCH POST
       await axios
          .post(API_URL, {
             email: userName,
@@ -36,8 +35,6 @@ function SignIn() {
                axios.defaults.headers = {
                   Authorization: "Bearer " + userToken,
                };
-
-               // Enfin : Redirection vers "/user"
                redirect("/user");
             }
          })
