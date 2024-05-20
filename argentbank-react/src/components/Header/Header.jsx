@@ -6,7 +6,6 @@ import {
    faRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
-import axios from "axios";
 
 function Header() {
    const [signIn, setSignIn] = useState(true);

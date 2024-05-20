@@ -6,11 +6,11 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
    totalCounter: 0,
-   users: [],
-   error: "",
+   // users: [],
+   // error: "",
 };
 
-export const counterSlice = createSlice({
+const counterSlice = createSlice({
    name: "counter",
    initialState,
    reducers: {
