@@ -6,19 +6,28 @@ import {
    faRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 function Header() {
    const [signIn, setSignIn] = useState(true);
-   const [userFirstName, setUserFirstName] = useState("Name");
+   const [userFirstName, setUserFirstName] = useState(
+      localStorage.getItem("prenom")
+         ? localStorage.getItem("prenom")
+         : "unknown"
+   );
 
    const userToken = localStorage.getItem("userToken");
 
+   function updateLoginAndOut() {
+      setSignIn(false);
+      setUserFirstName(localStorage.getItem("prenom"));
+   }
+
    useEffect(() => {
       if (userToken) {
-         setSignIn(false);
-         setUserFirstName(localStorage.getItem("prenom"));
+         updateLoginAndOut();
       }
-   }, [userToken]);
+   });
 
    return (
       <>
@@ -39,8 +48,8 @@ function Header() {
                   </a>
                )}
 
-               <a className="HeaderSignIn" href="/login">
-                  {signIn ? (
+               {signIn ? (
+                  <a className="HeaderSignIn" href="/login">
                      <span>
                         <FontAwesomeIcon
                            className="HeaderSignInLogo"
@@ -48,7 +57,13 @@ function Header() {
                         />
                         Sign In
                      </span>
-                  ) : (
+                  </a>
+               ) : (
+                  <a
+                     className="HeaderSignIn"
+                     href="/login"
+                     onClick={() => localStorage.clear()}
+                  >
                      <span>
                         <FontAwesomeIcon
                            className="HeaderSignInLogo"
@@ -56,8 +71,8 @@ function Header() {
                         />
                         Sign Out
                      </span>
-                  )}
-               </a>
+                  </a>
+               )}
             </div>
          </nav>
       </>

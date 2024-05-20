@@ -14,10 +14,10 @@ function User() {
    const [userLastName, setUserLastName] = useState(
       localStorage.getItem("nom") ? localStorage.getItem("nom") : "unknown"
    );
-   const items = localStorage.getItem("userToken");
+   const userToken = localStorage.getItem("userToken");
 
    const redirect = useNavigate();
-   console.log("Token PROFILE: ", items);
+   console.log("Token PROFILE: ", userToken);
 
    const profileFetcher = async () => {
       // URL PROFILE
@@ -25,7 +25,7 @@ function User() {
       await axios
          .post(API_URL, {
             headers: {
-               Authorization: "Bearer " + items,
+               Authorization: "Bearer " + userToken,
             },
          })
          .then((response) => {
@@ -48,13 +48,13 @@ function User() {
 
    // REVOIR CE USEEFFECT()
    useEffect(() => {
-      if (items === undefined) {
+      if (userToken === undefined) {
          redirect("/");
       }
-      if (items) {
+      if (userToken) {
          profileFetcher();
       }
-   }, [items]);
+   }, [userToken]);
 
    return (
       <>
