@@ -1,13 +1,7 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-
-// export const fetchUsers = createAsyncThunk("user/fetchUsers", () => {
-//    return axios.get("http://localhost:3001/argentBankDB").then((response) => response.data);
-// });
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
    totalCounter: 0,
-   // users: [],
-   // error: "",
 };
 
 const counterSlice = createSlice({
@@ -21,21 +15,6 @@ const counterSlice = createSlice({
          state.totalCounter--;
       },
    },
-   // extraReducers: (builder) => {
-   //    builder.addCase(fetchUsers.pending, (state) => {
-   //       state.loading = true;
-   //    });
-   //    builder.addCase(fetchUsers.fulfilled, (state, action) => {
-   //       state.loading = false;
-   //       state.users = action.payload;
-   //       state.error = "";
-   //    });
-   //    builder.addCase(fetchUsers.rejected, (state, action) => {
-   //       state.loading = false;
-   //       state.users = [];
-   //       state.error = action.error.message;
-   //    });
-   // },
 });
 
 export default counterSlice.reducer;

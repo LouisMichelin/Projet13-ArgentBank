@@ -6,11 +6,20 @@ import { useNavigate } from "react-router-dom";
 import Counter from "../../redux/slices/counter/Counter";
 import axios from "axios";
 // import { loginUser } from "../../../../server/services/userService";
+import { useSelector, useDispatch } from "react-redux";
+import { setToken } from "../../redux/slices/token/tokenSlice";
+import { getToken } from "../../redux/selectors";
+
+import { store } from "../../redux/store";
 
 function SignIn() {
    const [userName, setUserName] = useState("");
    const [userPassword, setUserPassword] = useState("");
+   // Setup Redux
+   const dispatch = useDispatch();
    const redirect = useNavigate();
+   // Init du Token
+   const token = useSelector(getToken);
 
    const handleSubmit = async (event) => {
       event.preventDefault();
@@ -23,18 +32,32 @@ function SignIn() {
          })
          .then((response) => {
             if (response.status === 200) {
+               //////////////////////////////////////////////////////////////////
+               //////////////////////////////////////////////////////////////////
+               // // Token du User
+               // dispatch(setToken(token));
+               // console.log("tokendispatch", token);
+               // const userToken = response.data.body.token;
+               // console.log("Token SIGNIN: ", userToken);
+               // // Si le localStorage n'a pas d'Item "userToken"
+               // if (!localStorage.getItem("userToken")) {
+               //    localStorage.setItem("userToken", userToken);
+               //    console.log("c'était bien vide!");
+               // }
+               // // Setup du Headers Authorization
+               // axios.defaults.headers = {
+               //    Authorization: "Bearer " + userToken,
+               // };
+               // redirect("/user");
+               //////////////////////////////////////////////////////////////////
+               //////////////////////////////////////////////////////////////////
                // Token du User
+               dispatch(setToken(token));
+
+               // console.log("tokendispatch", token);
                const userToken = response.data.body.token;
                console.log("Token SIGNIN: ", userToken);
-               // Si le localStorage n'a pas d'Item "userToken"
-               if (!localStorage.getItem("userToken")) {
-                  localStorage.setItem("userToken", userToken);
-                  console.log("c'était bien vide!");
-               }
-               // Setup du Headers Authorization
-               axios.defaults.headers = {
-                  Authorization: "Bearer " + userToken,
-               };
+
                redirect("/user");
             }
          })

@@ -1,22 +1,22 @@
 import { configureStore } from "@reduxjs/toolkit";
 import counterSlice from "./slices/counter/counterSlice";
-// import authReducer
+import tokenSlice from "./slices/token/tokenSlice";
 
 let state = {
-   user: {},
+   token: "",
 };
 
 export const store = configureStore({
    preloadedState: state,
    reducer: {
       counter: counterSlice,
-      // auth: authReducer,
+      token: tokenSlice.reducer,
    },
-   // middleware: [
-   //       () => (next) => (action) => {
-   //           console.log('Action', action)
-   //           next(action);
-   //       },
-   //       thunk,
-   // ]
 });
+
+store.subscribe(() => console.log("init state store:", store.getState()));
+/////////////////////////////////////////////////////////
+// const unsubscribe = store.subscribe(() =>
+//    console.log("init state store:", store.getState())
+// );
+// unsubscribe();
