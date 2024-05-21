@@ -19,12 +19,13 @@ function SignIn() {
    const dispatch = useDispatch();
    const redirect = useNavigate();
    // Init du Token
-   const token = useSelector(getToken);
+   // const token = useSelector(getToken);
 
    const handleSubmit = async (event) => {
       event.preventDefault();
       // URL LOGIN
       const API_URL = "http://127.0.0.1:3001/api/v1/user/login";
+
       await axios
          .post(API_URL, {
             email: userName,
@@ -32,12 +33,18 @@ function SignIn() {
          })
          .then((response) => {
             if (response.status === 200) {
+               const userToken = response.data.body.token;
+               console.log("token:", userToken);
+
+               dispatch({ type: "token", payload: userToken });
+
+               // dispatch(setToken(userToken));
+               // console.log();
                //////////////////////////////////////////////////////////////////
                //////////////////////////////////////////////////////////////////
                // // Token du User
                // dispatch(setToken(token));
                // console.log("tokendispatch", token);
-               // const userToken = response.data.body.token;
                // console.log("Token SIGNIN: ", userToken);
                // // Si le localStorage n'a pas d'Item "userToken"
                // if (!localStorage.getItem("userToken")) {
@@ -52,13 +59,20 @@ function SignIn() {
                //////////////////////////////////////////////////////////////////
                //////////////////////////////////////////////////////////////////
                // Token du User
-               dispatch(setToken(token));
+               // dispatch(setToken(token));
 
-               // console.log("tokendispatch", token);
-               const userToken = response.data.body.token;
-               console.log("Token SIGNIN: ", userToken);
+               // const test = (state) => {
+               //    console.log("tests au pluriel");
+               //    console.log(state);
+               //    console.log(state?.token);
+               //    console.log(state?.token?.token);
+               // };
+               // test();
+               // // console.log("tokendispatch", token);
+               // const userToken = response.data.body.token;
+               // console.log("Token SIGNIN: ", userToken);
 
-               redirect("/user");
+               // redirect("/user");
             }
          })
          .catch((error) => {

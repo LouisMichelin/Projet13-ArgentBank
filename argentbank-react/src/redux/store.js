@@ -2,14 +2,15 @@ import { configureStore } from "@reduxjs/toolkit";
 import counterSlice from "./slices/counter/counterSlice";
 import tokenSlice from "./slices/token/tokenSlice";
 
-let state = {
-   token: "",
-};
+// let state = {
+//    token: "",
+// };
 
 export const store = configureStore({
-   preloadedState: state,
+   // preloadedState: state,
    reducer: {
       counter: counterSlice,
+      // token: tokenSlice.reducer,
       token: tokenSlice.reducer,
    },
 });

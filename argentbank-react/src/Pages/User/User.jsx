@@ -14,47 +14,47 @@ function User() {
    const [userLastName, setUserLastName] = useState(
       localStorage.getItem("nom") ? localStorage.getItem("nom") : "unknown"
    );
-   const userToken = localStorage.getItem("userToken");
+   // const userToken = localStorage.getItem("userToken");
 
-   const redirect = useNavigate();
-   console.log("Token PROFILE: ", userToken);
+   // const redirect = useNavigate();
+   // console.log("Token PROFILE: ", userToken);
 
-   const profileFetcher = async () => {
-      // URL PROFILE
-      const API_URL = "http://127.0.0.1:3001/api/v1/user/profile";
-      await axios
-         .post(API_URL, {
-            headers: {
-               Authorization: "Bearer " + userToken,
-            },
-         })
-         .then((response) => {
-            if (response.status === 200) {
-               console.log("USER GG:", response);
-               // Setup Firstname
-               const firstname = response.data.body.firstName;
-               localStorage.setItem("prenom", firstname);
-               setUserFirstName(localStorage.getItem("prenom"));
-               // Setup Lastname
-               const lastname = response.data.body.lastName;
-               localStorage.setItem("nom", lastname);
-               setUserLastName(localStorage.getItem("nom"));
-            }
-         })
-         .catch((error) => {
-            console.log(error);
-         });
-   };
+   // const profileFetcher = async () => {
+   //    // URL PROFILE
+   //    const API_URL = "http://127.0.0.1:3001/api/v1/user/profile";
+   //    await axios
+   //       .post(API_URL, {
+   //          headers: {
+   //             Authorization: "Bearer " + userToken,
+   //          },
+   //       })
+   //       .then((response) => {
+   //          if (response.status === 200) {
+   //             console.log("USER GG:", response);
+   //             // Setup Firstname
+   //             const firstname = response.data.body.firstName;
+   //             localStorage.setItem("prenom", firstname);
+   //             setUserFirstName(localStorage.getItem("prenom"));
+   //             // Setup Lastname
+   //             const lastname = response.data.body.lastName;
+   //             localStorage.setItem("nom", lastname);
+   //             setUserLastName(localStorage.getItem("nom"));
+   //          }
+   //       })
+   //       .catch((error) => {
+   //          console.log(error);
+   //       });
+   // };
 
-   // REVOIR CE USEEFFECT()
-   useEffect(() => {
-      if (userToken === undefined) {
-         redirect("/");
-      }
-      if (userToken) {
-         profileFetcher();
-      }
-   }, [userToken]);
+   // // REVOIR CE USEEFFECT()
+   // useEffect(() => {
+   //    if (userToken === undefined) {
+   //       redirect("/");
+   //    }
+   //    if (userToken) {
+   //       profileFetcher();
+   //    }
+   // }, [userToken]);
 
    return (
       <>
