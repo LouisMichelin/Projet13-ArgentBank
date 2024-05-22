@@ -1,17 +1,15 @@
 import "./SignIn.scss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import Counter from "../../redux/slices/counter/Counter";
-import axios from "axios";
-// import { loginUser } from "../../../../server/services/userService";
-import { useSelector, useDispatch, useStore } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch, useStore } from "react-redux";
 import { setToken } from "../../redux/slices/token/tokenSlice";
-// import { getToken } from "../../redux/selectors";
-import { getFirstName } from "../../redux/slices/user/userSlice";
+import { getToken } from "../../redux/selectors";
 
 function SignIn() {
+   // Setup User Inputs
    const [userName, setUserName] = useState("");
    const [userPassword, setUserPassword] = useState("");
    // Setup Redux
@@ -19,11 +17,13 @@ function SignIn() {
    const dispatch = useDispatch();
    const redirect = useNavigate();
 
+   const [MONESSAI, setMONESSAI] = useState();
+
    const handleSubmit = async (event) => {
       event.preventDefault();
       // URL LOGIN
       const API_URL = "http://127.0.0.1:3001/api/v1/user/login";
-
+      // AXIOS
       await axios
          .post(API_URL, {
             email: userName,
@@ -35,28 +35,9 @@ function SignIn() {
                const userToken = response.data.body.token;
                localStorage.setItem("userToken", userToken);
                console.log("LOCAL TOKEN:", localStorage.getItem("userToken"));
-               // Dispatch TOKEN
                dispatch(setToken(userToken));
-               // redirect("/user");
-               //////////////////////////////////////////////////////////////////
-               axios.defaults.headers = {
-                  Authorization: "Bearer " + userToken,
-               };
-               //////////////////////////////////////////////////////////////////
-               // // Token du User
-               // dispatch(setToken(token));
-               // console.log("tokendispatch", token);
-               // console.log("Token SIGNIN: ", userToken);
-               // // Si le localStorage n'a pas d'Item "userToken"
-               // if (!localStorage.getItem("userToken")) {
-               //    localStorage.setItem("userToken", userToken);
-               //    console.log("c'était bien vide!");
-               // }
-               // // Setup du Headers Authorization
-               // axios.defaults.headers = {
-               //    Authorization: "Bearer " + userToken,
-               // };
-               //////////////////////////////////////////////////////////////////
+               setMONESSAI(userToken);
+               redirect("/user");
             }
          })
          .catch((error) => {
@@ -68,10 +49,8 @@ function SignIn() {
       <>
          <main className="SignIn">
             <span style={{ display: "flex", flexDirection: "column" }}>
-               {/* <Counter /> */}
-               <div>----------</div>
                <div style={{ color: "white" }}>TEST IMPORT TOKEN</div>
-               <div style={{ color: "white" }}>{store.getState().token}</div>
+               <div style={{ color: "white" }}>{MONESSAI}</div>
             </span>
             <section className="SignIn-Content">
                <FontAwesomeIcon className="SignIn-Logo" icon={faCircleUser} />

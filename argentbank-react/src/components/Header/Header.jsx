@@ -14,7 +14,7 @@ import { getToken, getUser } from "../../redux/selectors";
 function Header() {
    // ICI, JE VEUX RECUPERER LA VALEUR TOKEN GENEREE DEPUIS REDUX
    const token = useSelector(getToken);
-   console.log("token", token);
+   // console.log("token", token);
 
    const user = useSelector(getUser);
    console.log("user", user);

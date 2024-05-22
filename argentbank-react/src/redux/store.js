@@ -16,7 +16,7 @@ export const store = configureStore({
    },
 });
 
-store.subscribe(() => console.log("UPDATE STORE:", store.getState()));
+store.subscribe(() => console.log("UPDATE STORE INFO:", store.getState()));
 
 // const unsubscribe = store.subscribe(() =>
 //    console.log("init state store:", store.getState())

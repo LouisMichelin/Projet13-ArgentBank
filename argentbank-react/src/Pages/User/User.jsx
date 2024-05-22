@@ -1,39 +1,57 @@
-import { useState, useEffect } from "react";
 import "./User.scss";
 import axios from "axios";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { getToken, getUser } from "../../redux/selectors";
+import { setUser } from "../../redux/slices/user/userSlice";
 
 function User() {
+   // Setup User : FirstName & LastName
+   const [userFirstName, setUserFirstName] = useState("Jean");
+   const [userLastName, setUserLastName] = useState("Dupont");
+   // Setup Redux
    const token = useSelector(getToken);
-
-   // Firstname depuis localStorage
-   const [userFirstName, setUserFirstName] = useState(null);
-   // Lastname depuis localStorage
-   const [userLastName, setUserLastName] = useState(null);
+   const dispatch = useDispatch();
+   const redirect = useNavigate();
 
    const profileFetcher = async () => {
+      console.log("voici le token de <USER/>:", token);
       // URL PROFILE
       const API_URL = "http://127.0.0.1:3001/api/v1/user/profile";
       await axios
-         .post(API_URL, {
-            headers: {
-               Authorization: "Bearer " + token,
+         .post(
+            API_URL,
+            {
+               status: 0,
+               message: "string",
+               body: {
+                  id: "string",
+                  email: "string",
+               },
             },
-         })
+            {
+               headers: {
+                  Authorization: "Bearer " + token,
+               },
+            }
+         )
          .then((response) => {
             if (response.status === 200) {
+               console.log(response.data.body);
+               dispatch(setUser(response.data.body));
+
                const prenom = response.data.body.firstName;
                const nom = response.data.body.lastName;
                localStorage.setItem("firstname", prenom);
                localStorage.setItem("lastname", nom);
-               if (userFirstName === null)
-                  setUserFirstName(localStorage.getItem("firstname"));
-               if (userLastName === null)
-                  setUserLastName(localStorage.getItem("lastname"));
-
-               console.log(response.data.body.firstName);
+               setUserFirstName(prenom);
+               setUserLastName(nom);
+               // if (userFirstName === null)
+               //    setUserFirstName(localStorage.getItem("firstname"));
+               // if (userLastName === null)
+               //    setUserLastName(localStorage.getItem("lastname"));
+               // console.log(response.data.body.firstName);
             }
          })
          .catch((error) => {
@@ -41,21 +59,17 @@ function User() {
          });
    };
 
+   // UseEffect : Dès que le TOKEN est défini, alors on lance profileFetcher()
    useEffect(() => {
       if (token) {
+         console.log("useeffect token: ", token);
          profileFetcher();
       }
-   });
-
-   // // REVOIR CE USEEFFECT()
-   // useEffect(() => {
-   //    if (userToken === undefined) {
-   //       redirect("/");
-   //    }
-   //    if (userToken) {
-   //       profileFetcher();
-   //    }
-   // }, [userToken]);
+      // REDIRECTION SI TOKEN UNDEFINED
+      // else if (token === undefined) {
+      //    redirect("/")
+      // }
+   }, []);
 
    return (
       <>
