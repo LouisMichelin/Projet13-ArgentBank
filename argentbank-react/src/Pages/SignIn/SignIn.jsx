@@ -6,9 +6,9 @@ import { useNavigate } from "react-router-dom";
 import Counter from "../../redux/slices/counter/Counter";
 import axios from "axios";
 // import { loginUser } from "../../../../server/services/userService";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch, useStore } from "react-redux";
 import { setToken } from "../../redux/slices/token/tokenSlice";
-import { getToken } from "../../redux/selectors";
+// import { getToken } from "../../redux/selectors";
 
 import { store } from "../../redux/store";
 
@@ -16,10 +16,13 @@ function SignIn() {
    const [userName, setUserName] = useState("");
    const [userPassword, setUserPassword] = useState("");
    // Setup Redux
+   const store = useStore();
    const dispatch = useDispatch();
    const redirect = useNavigate();
    // Init du Token
    // const token = useSelector(getToken);
+   const getToken = (state) => state?.token?.token;
+   // const TOKEN_TEST = useSelector((state) => state.token.token);
 
    const handleSubmit = async (event) => {
       event.preventDefault();
@@ -34,13 +37,16 @@ function SignIn() {
          .then((response) => {
             if (response.status === 200) {
                const userToken = response.data.body.token;
-               console.log("token:", userToken);
+               localStorage.setItem("userToken", userToken);
 
-               dispatch({ type: "token", payload: userToken });
+               console.log("LOCAL TOKEN:", localStorage.getItem("userToken"));
+               dispatch(setToken(userToken));
 
+               // console.log(state?.token);
+               // getToken(userToken);
+               //////////////////////////////////////////////////////////////////
                // dispatch(setToken(userToken));
                // console.log();
-               //////////////////////////////////////////////////////////////////
                //////////////////////////////////////////////////////////////////
                // // Token du User
                // dispatch(setToken(token));
@@ -57,22 +63,6 @@ function SignIn() {
                // };
                // redirect("/user");
                //////////////////////////////////////////////////////////////////
-               //////////////////////////////////////////////////////////////////
-               // Token du User
-               // dispatch(setToken(token));
-
-               // const test = (state) => {
-               //    console.log("tests au pluriel");
-               //    console.log(state);
-               //    console.log(state?.token);
-               //    console.log(state?.token?.token);
-               // };
-               // test();
-               // // console.log("tokendispatch", token);
-               // const userToken = response.data.body.token;
-               // console.log("Token SIGNIN: ", userToken);
-
-               // redirect("/user");
             }
          })
          .catch((error) => {
@@ -83,7 +73,12 @@ function SignIn() {
    return (
       <>
          <main className="SignIn">
-            <Counter />
+            <span style={{ display: "flex", flexDirection: "column" }}>
+               <Counter />
+               <div>----------</div>
+               <div style={{ color: "white" }}>TEST IMPORT TOKEN</div>
+               <div style={{ color: "white" }}>{store.getState().token}</div>
+            </span>
             <section className="SignIn-Content">
                <FontAwesomeIcon className="SignIn-Logo" icon={faCircleUser} />
                <h1>Sign In</h1>
