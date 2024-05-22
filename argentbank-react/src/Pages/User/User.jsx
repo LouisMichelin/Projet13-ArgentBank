@@ -2,49 +2,43 @@ import { useState, useEffect } from "react";
 import "./User.scss";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { getToken } from "../../redux/selectors";
 
 function User() {
+   const token = useSelector(getToken);
+
    // Firstname depuis localStorage
-   const [userFirstName, setUserFirstName] = useState(
-      localStorage.getItem("prenom")
-         ? localStorage.getItem("prenom")
-         : "unknown"
-   );
+   const [userFirstName, setUserFirstName] = useState("Jean");
    // Lastname depuis localStorage
-   const [userLastName, setUserLastName] = useState(
-      localStorage.getItem("nom") ? localStorage.getItem("nom") : "unknown"
-   );
-   // const userToken = localStorage.getItem("userToken");
+   const [userLastName, setUserLastName] = useState("Dupont");
 
-   // const redirect = useNavigate();
-   // console.log("Token PROFILE: ", userToken);
+   const profileFetcher = async () => {
+      // URL PROFILE
+      const API_URL = "http://127.0.0.1:3001/api/v1/user/profile";
+      await axios
+         .post(API_URL, {
+            headers: {
+               Authorization: "Bearer " + token,
+            },
+         })
+         .then((response) => {
+            if (response.status === 200) {
+               setUserFirstName(response.data.body.firstName);
+               setUserLastName(response.data.body.lastName);
+               console.log(response.data.body.firstName);
+            }
+         })
+         .catch((error) => {
+            console.log(error);
+         });
+   };
 
-   // const profileFetcher = async () => {
-   //    // URL PROFILE
-   //    const API_URL = "http://127.0.0.1:3001/api/v1/user/profile";
-   //    await axios
-   //       .post(API_URL, {
-   //          headers: {
-   //             Authorization: "Bearer " + userToken,
-   //          },
-   //       })
-   //       .then((response) => {
-   //          if (response.status === 200) {
-   //             console.log("USER GG:", response);
-   //             // Setup Firstname
-   //             const firstname = response.data.body.firstName;
-   //             localStorage.setItem("prenom", firstname);
-   //             setUserFirstName(localStorage.getItem("prenom"));
-   //             // Setup Lastname
-   //             const lastname = response.data.body.lastName;
-   //             localStorage.setItem("nom", lastname);
-   //             setUserLastName(localStorage.getItem("nom"));
-   //          }
-   //       })
-   //       .catch((error) => {
-   //          console.log(error);
-   //       });
-   // };
+   useEffect(() => {
+      if (token) {
+         profileFetcher();
+      }
+   });
 
    // // REVOIR CE USEEFFECT()
    // useEffect(() => {

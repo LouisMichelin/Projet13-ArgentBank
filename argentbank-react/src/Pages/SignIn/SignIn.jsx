@@ -37,7 +37,7 @@ function SignIn() {
                console.log("LOCAL TOKEN:", localStorage.getItem("userToken"));
                // Dispatch TOKEN
                dispatch(setToken(userToken));
-               // redirect("/user");
+               redirect("/user");
                //////////////////////////////////////////////////////////////////
                axios.defaults.headers = {
                   Authorization: "Bearer " + userToken,
