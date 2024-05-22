@@ -9,8 +9,7 @@ import axios from "axios";
 import { useSelector, useDispatch, useStore } from "react-redux";
 import { setToken } from "../../redux/slices/token/tokenSlice";
 // import { getToken } from "../../redux/selectors";
-
-import { store } from "../../redux/store";
+import { getFirstName } from "../../redux/slices/user/userSlice";
 
 function SignIn() {
    const [userName, setUserName] = useState("");
@@ -19,10 +18,6 @@ function SignIn() {
    const store = useStore();
    const dispatch = useDispatch();
    const redirect = useNavigate();
-   // Init du Token
-   // const token = useSelector(getToken);
-   const getToken = (state) => state?.token?.token;
-   // const TOKEN_TEST = useSelector((state) => state.token.token);
 
    const handleSubmit = async (event) => {
       event.preventDefault();
@@ -36,17 +31,17 @@ function SignIn() {
          })
          .then((response) => {
             if (response.status === 200) {
+               // LocalStorage TOKEN
                const userToken = response.data.body.token;
                localStorage.setItem("userToken", userToken);
-
                console.log("LOCAL TOKEN:", localStorage.getItem("userToken"));
+               // Dispatch TOKEN
                dispatch(setToken(userToken));
-
-               // console.log(state?.token);
-               // getToken(userToken);
+               // redirect("/user");
                //////////////////////////////////////////////////////////////////
-               // dispatch(setToken(userToken));
-               // console.log();
+               axios.defaults.headers = {
+                  Authorization: "Bearer " + userToken,
+               };
                //////////////////////////////////////////////////////////////////
                // // Token du User
                // dispatch(setToken(token));
@@ -61,7 +56,6 @@ function SignIn() {
                // axios.defaults.headers = {
                //    Authorization: "Bearer " + userToken,
                // };
-               // redirect("/user");
                //////////////////////////////////////////////////////////////////
             }
          })

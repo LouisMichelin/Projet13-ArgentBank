@@ -4,6 +4,7 @@ import tokenSlice from "./slices/token/tokenSlice";
 
 let state = {
    token: "",
+   // user: "USER_NAME",
 };
 
 export const store = configureStore({
@@ -11,7 +12,6 @@ export const store = configureStore({
    reducer: {
       counter: counterSlice,
       token: tokenSlice,
-      // token: tokenSlice.reducer,
    },
 });
 

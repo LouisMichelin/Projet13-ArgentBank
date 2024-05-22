@@ -1,17 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const tokenSlice = createSlice({
-   name: "token",
+   name: "user",
    initialState: {},
    reducers: {
-      setToken: (state, action) => {
-         const newState = { ...state, token: action.payload };
-         console.log("NEWSTATE TOKEN:", newState);
-         return newState;
+      getFirstName: (state, action) => {
+         const importedFirstName = { ...state, user: action.payload };
+         console.log("NEWSTATE TOKEN:", importedFirstName);
+         return importedFirstName;
       },
-      // removeToken: () => {
-      //    return {};
-      // },
    },
 });
 // Nous créons le reducer
@@ -26,4 +23,4 @@ const tokenSlice = createSlice({
 //    }
 // };
 export default tokenSlice.reducer;
-export const { setToken, removeToken } = tokenSlice.actions;
+export const { getFirstName } = tokenSlice.actions;

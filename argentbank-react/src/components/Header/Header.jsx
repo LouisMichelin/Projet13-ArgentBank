@@ -8,8 +8,13 @@ import {
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 // import { getToken } from "../../redux/selectors";
+import { store } from "../../redux/store";
 
 function Header() {
+   // ICI, JE VEUX RECUPERER LA VALEUR TOKEN GENEREE DEPUIS REDUX
+   const unevaleur = store.getState().token;
+   console.log(unevaleur);
+
    // const token = useSelector(getToken);
    // const [signIn, setSignIn] = useState(true);
    // const [userFirstName, setUserFirstName] = useState(
@@ -38,7 +43,7 @@ function Header() {
                <img src={BankLogo} alt="Logo de ArgentBank" />
                <h1 className="sr-only">Argent Bank</h1>
             </a>
-
+            <div>{unevaleur}</div>
             <div className="HeaderProfileAndSignin">
                {/* {!signIn && ( */}
                {/* {token && (
