@@ -9,6 +9,11 @@ const tokenSlice = createSlice({
          console.log("NEWSTATE TOKEN:", newState);
          return newState;
       },
+      // getToken: (state, action) => {
+      //    const actualState = { ...state, };
+      //    console.log("NEWSTATE TOKEN:", actualState);
+      //    return actualState;
+      // },
       // removeToken: () => {
       //    return {};
       // },
