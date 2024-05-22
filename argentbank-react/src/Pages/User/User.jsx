@@ -3,15 +3,15 @@ import "./User.scss";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { getToken } from "../../redux/selectors";
+import { getToken, getUser } from "../../redux/selectors";
 
 function User() {
    const token = useSelector(getToken);
 
    // Firstname depuis localStorage
-   const [userFirstName, setUserFirstName] = useState("Jean");
+   const [userFirstName, setUserFirstName] = useState(null);
    // Lastname depuis localStorage
-   const [userLastName, setUserLastName] = useState("Dupont");
+   const [userLastName, setUserLastName] = useState(null);
 
    const profileFetcher = async () => {
       // URL PROFILE
@@ -24,8 +24,15 @@ function User() {
          })
          .then((response) => {
             if (response.status === 200) {
-               setUserFirstName(response.data.body.firstName);
-               setUserLastName(response.data.body.lastName);
+               const prenom = response.data.body.firstName;
+               const nom = response.data.body.lastName;
+               localStorage.setItem("firstname", prenom);
+               localStorage.setItem("lastname", nom);
+               if (userFirstName === null)
+                  setUserFirstName(localStorage.getItem("firstname"));
+               if (userLastName === null)
+                  setUserLastName(localStorage.getItem("lastname"));
+
                console.log(response.data.body.firstName);
             }
          })

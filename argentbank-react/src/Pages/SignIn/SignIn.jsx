@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Counter from "../../redux/slices/counter/Counter";
+// import Counter from "../../redux/slices/counter/Counter";
 import axios from "axios";
 // import { loginUser } from "../../../../server/services/userService";
 import { useSelector, useDispatch, useStore } from "react-redux";
@@ -37,7 +37,7 @@ function SignIn() {
                console.log("LOCAL TOKEN:", localStorage.getItem("userToken"));
                // Dispatch TOKEN
                dispatch(setToken(userToken));
-               redirect("/user");
+               // redirect("/user");
                //////////////////////////////////////////////////////////////////
                axios.defaults.headers = {
                   Authorization: "Bearer " + userToken,
@@ -68,7 +68,7 @@ function SignIn() {
       <>
          <main className="SignIn">
             <span style={{ display: "flex", flexDirection: "column" }}>
-               <Counter />
+               {/* <Counter /> */}
                <div>----------</div>
                <div style={{ color: "white" }}>TEST IMPORT TOKEN</div>
                <div style={{ color: "white" }}>{store.getState().token}</div>

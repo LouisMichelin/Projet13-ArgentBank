@@ -9,13 +9,15 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 // import { getToken } from "../../redux/selectors";
 import { store } from "../../redux/store";
-import { getToken } from "../../redux/selectors";
+import { getToken, getUser } from "../../redux/selectors";
 
 function Header() {
    // ICI, JE VEUX RECUPERER LA VALEUR TOKEN GENEREE DEPUIS REDUX
    const token = useSelector(getToken);
    console.log("token", token);
 
+   const user = useSelector(getUser);
+   console.log("user", user);
    // setPrenom(token);
    //////////////////////////////////////////////////////////////
    // const token = useSelector(getToken);
