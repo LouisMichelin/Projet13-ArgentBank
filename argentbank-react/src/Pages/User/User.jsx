@@ -3,7 +3,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getToken, getUser } from "../../redux/selectors";
+import { getToken } from "../../redux/selectors";
 import { setUser } from "../../redux/slices/user/userSlice";
 
 function User() {
@@ -40,26 +40,26 @@ function User() {
             if (response.status === 200) {
                console.log(response.data.body);
                dispatch(setUser(response.data.body));
-
+               // DATA
                const prenom = response.data.body.firstName;
                const nom = response.data.body.lastName;
+               // LOCALSTORAGE
                localStorage.setItem("firstname", prenom);
                localStorage.setItem("lastname", nom);
+               // USESTATE
                setUserFirstName(prenom);
                setUserLastName(nom);
-               // if (userFirstName === null)
-               //    setUserFirstName(localStorage.getItem("firstname"));
-               // if (userLastName === null)
-               //    setUserLastName(localStorage.getItem("lastname"));
-               // console.log(response.data.body.firstName);
             }
          })
          .catch((error) => {
             console.log(error);
          });
    };
-
-   // Si TOKEN, alors profileFetcher() ; Sinon, LOCALSTORAGE ; Sinon, redirection.
+   /**
+    * Si TOKEN, alors profileFetcher()
+    * Sinon, LOCALSTORAGE
+    * Sinon, Redirect()
+    */
    useEffect(() => {
       if (token) {
          console.log("useeffect token: ", token);
