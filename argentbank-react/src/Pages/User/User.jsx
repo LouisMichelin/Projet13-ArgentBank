@@ -8,8 +8,8 @@ import { setUser } from "../../redux/slices/user/userSlice";
 
 function User() {
    // Setup User : FirstName & LastName
-   const [userFirstName, setUserFirstName] = useState("Jean");
-   const [userLastName, setUserLastName] = useState("Dupont");
+   const [userFirstName, setUserFirstName] = useState(null);
+   const [userLastName, setUserLastName] = useState(null);
    // Setup Redux
    const token = useSelector(getToken);
    const dispatch = useDispatch();
@@ -64,12 +64,13 @@ function User() {
       if (token) {
          console.log("useeffect token: ", token);
          profileFetcher();
+      } else if (!token && localStorage.length > 0) {
+         setUserFirstName(localStorage.getItem("firstname"));
+         setUserLastName(localStorage.getItem("lastname"));
+      } else {
+         redirect("/");
       }
-      // REDIRECTION SI TOKEN UNDEFINED
-      // else if (token === undefined) {
-      //    redirect("/")
-      // }
-   }, []);
+   });
 
    return (
       <>
