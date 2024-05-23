@@ -8,39 +8,14 @@ import {
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 // import { getToken } from "../../redux/selectors";
-import { store } from "../../redux/store";
 import { getToken, getUser } from "../../redux/selectors";
 
 function Header() {
-   // ICI, JE VEUX RECUPERER LA VALEUR TOKEN GENEREE DEPUIS REDUX
+   // Setup Redux
    const token = useSelector(getToken);
-   // console.log("token", token);
-
    const user = useSelector(getUser);
-   console.log("user", user);
-   // setPrenom(token);
-   //////////////////////////////////////////////////////////////
-   // const token = useSelector(getToken);
-   // const [signIn, setSignIn] = useState(true);
-   // const [userFirstName, setUserFirstName] = useState(
-   //    localStorage.getItem("prenom")
-   //       ? localStorage.getItem("prenom")
-   //       : "unknown"
-   // );
-
-   // const userToken = localStorage.getItem("userToken");
-
-   // function updateLoginAndOut() {
-   //    setSignIn(false);
-   //    setUserFirstName(localStorage.getItem("prenom"));
-   // }
-
-   // useEffect(() => {
-   //    if (userToken) {
-   //       updateLoginAndOut();
-   //    }
-   // });
-   //////////////////////////////////////////////////////////////
+   console.log("HEADER TOKEN:", token);
+   console.log("HEADER USER", user);
 
    return (
       <>
@@ -49,44 +24,37 @@ function Header() {
                <img src={BankLogo} alt="Logo de ArgentBank" />
                <h1 className="sr-only">Argent Bank</h1>
             </a>
-            <div>voici le token: {token}</div>
             <div className="HeaderProfileAndSignin">
-               {/* {!signIn && ( */}
-               {/* {token && (
+               {token && (
                   <a className="HeaderSignIn" href="/user">
                      <FontAwesomeIcon
                         className="HeaderSignOutLogo"
                         icon={faCircleUser}
                      />
-                     /* {localStorage.getItem("userToken") && userFirstName} 
+                     {user.firstName}
                   </a>
-               )} */}
-
-               <a className="HeaderSignIn" href="/login">
-                  <span>
-                     <FontAwesomeIcon
-                        className="HeaderSignInLogo"
-                        icon={faCircleUser}
-                     />
-                     Sign In
-                  </span>
-               </a>
-               {/*{signIn ? (
-               ) : (
+               )}
+               {token ? (
                   <a
                      className="HeaderSignIn"
                      href="/login"
                      onClick={() => localStorage.clear()}
                   >
-                     <span>
-                        <FontAwesomeIcon
-                           className="HeaderSignInLogo"
-                           icon={faRightFromBracket}
-                        />
-                        Sign Out
-                     </span>
+                     <FontAwesomeIcon
+                        className="HeaderSignInLogo"
+                        icon={faRightFromBracket}
+                     />
+                     Sign Out
                   </a>
-               )} */}
+               ) : (
+                  <a className="HeaderSignIn" href="/login">
+                     <FontAwesomeIcon
+                        className="HeaderSignInLogo"
+                        icon={faCircleUser}
+                     />
+                     Sign In
+                  </a>
+               )}
             </div>
          </nav>
       </>

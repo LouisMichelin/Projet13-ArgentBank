@@ -8,17 +8,17 @@ import { setUser } from "../../redux/slices/user/userSlice";
 
 function User() {
    // Setup User : FirstName & LastName
-   const [userFirstName, setUserFirstName] = useState(null);
-   const [userLastName, setUserLastName] = useState(null);
+   const [userFirstName, setUserFirstName] = useState("");
+   const [userLastName, setUserLastName] = useState("");
    // Setup Redux
-   const token = useSelector(getToken);
    const dispatch = useDispatch();
    const redirect = useNavigate();
+   const token = useSelector(getToken);
 
    const profileFetcher = async () => {
       console.log("voici le token de <USER/>:", token);
-      // URL PROFILE
       const API_URL = "http://127.0.0.1:3001/api/v1/user/profile";
+      // AXIOS
       await axios
          .post(
             API_URL,
@@ -59,7 +59,7 @@ function User() {
          });
    };
 
-   // UseEffect : Dès que le TOKEN est défini, alors on lance profileFetcher()
+   // Si TOKEN, alors profileFetcher() ; Sinon, LOCALSTORAGE ; Sinon, redirection.
    useEffect(() => {
       if (token) {
          console.log("useeffect token: ", token);
@@ -70,7 +70,7 @@ function User() {
       } else {
          redirect("/");
       }
-   });
+   }, [token]);
 
    return (
       <>

@@ -4,24 +4,19 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
-import { useDispatch, useStore } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setToken } from "../../redux/slices/token/tokenSlice";
-import { getToken } from "../../redux/selectors";
 
 function SignIn() {
    // Setup User Inputs
    const [userName, setUserName] = useState("");
    const [userPassword, setUserPassword] = useState("");
    // Setup Redux
-   const store = useStore();
    const dispatch = useDispatch();
    const redirect = useNavigate();
 
-   const [MONESSAI, setMONESSAI] = useState();
-
    const handleSubmit = async (event) => {
       event.preventDefault();
-      // URL LOGIN
       const API_URL = "http://127.0.0.1:3001/api/v1/user/login";
       // AXIOS
       await axios
@@ -31,12 +26,8 @@ function SignIn() {
          })
          .then((response) => {
             if (response.status === 200) {
-               // LocalStorage TOKEN
                const userToken = response.data.body.token;
-               localStorage.setItem("userToken", userToken);
-               console.log("LOCAL TOKEN:", localStorage.getItem("userToken"));
                dispatch(setToken(userToken));
-               setMONESSAI(userToken);
                redirect("/user");
             }
          })
@@ -48,10 +39,6 @@ function SignIn() {
    return (
       <>
          <main className="SignIn">
-            <span style={{ display: "flex", flexDirection: "column" }}>
-               <div style={{ color: "white" }}>TEST IMPORT TOKEN</div>
-               <div style={{ color: "white" }}>{MONESSAI}</div>
-            </span>
             <section className="SignIn-Content">
                <FontAwesomeIcon className="SignIn-Logo" icon={faCircleUser} />
                <h1>Sign In</h1>
