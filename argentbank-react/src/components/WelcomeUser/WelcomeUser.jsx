@@ -1,6 +1,7 @@
 import "./WelcomeUser.scss";
+import { useState } from "react";
 
-function WelcomeUser({ prenom, nom }) {
+function WelcomeUser({ prenom, nom, isActive }) {
    return (
       <>
          <div className="User-Header">

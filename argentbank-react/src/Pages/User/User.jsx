@@ -8,10 +8,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { getToken } from "../../redux/selectors";
 import { setUser } from "../../redux/slices/user/userSlice";
 
-function User() {
+function User({ isActive }) {
    // Setup User : FirstName & LastName
    const [userFirstName, setUserFirstName] = useState("");
    const [userLastName, setUserLastName] = useState("");
+   // const [isActive, setIsActive] = useState(false);
+
    // Setup Redux
    const dispatch = useDispatch();
    const redirect = useNavigate();
@@ -72,8 +74,20 @@ function User() {
    return (
       <>
          <main className="User">
-            <WelcomeUser prenom={userFirstName} nom={userLastName} />
-            <EditUser prenom={userFirstName} nom={userLastName} />
+            {editClicked ? (
+               <EditUser
+                  prenom={userFirstName}
+                  nom={userLastName}
+                  // btnClicked={() => setEditClicked(!editClicked)}
+               />
+            ) : (
+               <WelcomeUser
+                  prenom={userFirstName}
+                  nom={userLastName}
+                  // btnClicked={() => setEditClicked(!editClicked)}
+               />
+            )}
+
             <h2 className="sr-only">Accounts</h2>
 
             <section className="UserAccount">
