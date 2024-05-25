@@ -19,16 +19,31 @@ function Header() {
 
    const [userName, setUserName] = useState();
 
-   // QUELQUE CHOSE A FAIRE AUTOUR DE CETTE CONST
-   const localuser = localStorage.getItem("firstname");
-
    useEffect(() => {
       if (token) {
-         setUserName(user.firstname);
+         return setUserName(user.firstname);
       } else {
-         setUserName(localuser);
+         console.log("localstoragename:", localStorage.getItem("firstname"));
+         return setUserName(localStorage.getItem("firstname"));
       }
-   }, []);
+   }, [token]);
+
+   // useEffect(() => {
+   //    if (token) {
+   //       setUserName(user.firstname);
+   //    } else {
+   //       setUserName(localuser);
+   //    }
+   // }, []);
+
+   // useEffect(() => {
+   //    if (token) {
+   //       console.log("header token: ", token);
+   //       setUserName(user.firstname);
+   //    } else if (!token && localStorage.length > 0) {
+   //       setUserName(localStorage.getItem("firstname"));
+   //    }
+   // }, [localuser]);
 
    return (
       <>
@@ -38,7 +53,7 @@ function Header() {
                <h1 className="sr-only">Argent Bank</h1>
             </a>
             <div className="HeaderProfileAndSignin">
-               {token || localuser ? (
+               {token ? (
                   <a className="HeaderSignIn" href="/user">
                      <FontAwesomeIcon
                         className="HeaderSignOutLogo"
@@ -48,7 +63,7 @@ function Header() {
                   </a>
                ) : null}
 
-               {token || localuser ? (
+               {token ? (
                   <a
                      className="HeaderSignIn"
                      href="/login"
