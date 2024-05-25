@@ -12,38 +12,20 @@ import { getToken, getUser } from "../../redux/selectors";
 
 function Header() {
    // Setup Redux
-   const token = useSelector(getToken);
    const user = useSelector(getUser);
-   console.log("HEADER TOKEN:", token);
-   console.log("HEADER USER", user);
-
-   const [userName, setUserName] = useState();
-
-   useEffect(() => {
-      if (token) {
-         return setUserName(user.firstname);
-      } else {
-         console.log("localstoragename:", localStorage.getItem("firstname"));
-         return setUserName(localStorage.getItem("firstname"));
-      }
-   }, [token]);
-
-   // useEffect(() => {
-   //    if (token) {
-   //       setUserName(user.firstname);
-   //    } else {
-   //       setUserName(localuser);
-   //    }
-   // }, []);
+   const token = useSelector(getToken);
 
    // useEffect(() => {
    //    if (token) {
    //       console.log("header token: ", token);
-   //       setUserName(user.firstname);
-   //    } else if (!token && localStorage.length > 0) {
-   //       setUserName(localStorage.getItem("firstname"));
+   //       console.log("header token FIRSTNAME: ", user.firstName);
+   //       // setUserName(user.firstName);
+   //    } else {
+   //       console.log("header token ELSSSSSSSEEEEEEEE: ", token);
+   //       console.log("header token FIRSTNAME ELSE: ", user.firstName);
+   //       // setUserName(localStorage.getItem("firstname"));
    //    }
-   // }, [localuser]);
+   // }, []);
 
    return (
       <>
@@ -54,27 +36,26 @@ function Header() {
             </a>
             <div className="HeaderProfileAndSignin">
                {token ? (
-                  <a className="HeaderSignIn" href="/user">
-                     <FontAwesomeIcon
-                        className="HeaderSignOutLogo"
-                        icon={faCircleUser}
-                     />
-                     {userName}
-                  </a>
-               ) : null}
-
-               {token ? (
-                  <a
-                     className="HeaderSignIn"
-                     href="/login"
-                     onClick={() => localStorage.clear()}
-                  >
-                     <FontAwesomeIcon
-                        className="HeaderSignInLogo"
-                        icon={faRightFromBracket}
-                     />
-                     Sign Out
-                  </a>
+                  <span>
+                     <a className="HeaderSignIn" href="/user">
+                        <FontAwesomeIcon
+                           className="HeaderSignOutLogo"
+                           icon={faCircleUser}
+                        />
+                        {user.firstName}
+                     </a>
+                     <a
+                        className="HeaderSignIn"
+                        href="/login"
+                        onClick={() => localStorage.clear()}
+                     >
+                        <FontAwesomeIcon
+                           className="HeaderSignInLogo"
+                           icon={faRightFromBracket}
+                        />
+                        Sign Out
+                     </a>
+                  </span>
                ) : (
                   <a className="HeaderSignIn" href="/login">
                      <FontAwesomeIcon

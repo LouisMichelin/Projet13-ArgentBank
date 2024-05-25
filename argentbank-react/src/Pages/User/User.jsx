@@ -16,7 +16,7 @@ function User() {
    const token = useSelector(getToken);
 
    const profileFetcher = async () => {
-      console.log("voici le token de <USER/>:", token);
+      // console.log("voici le token de <USER/>:", token);
       const API_URL = "http://127.0.0.1:3001/api/v1/user/profile";
       // AXIOS
       await axios
@@ -38,7 +38,7 @@ function User() {
          )
          .then((response) => {
             if (response.status === 200) {
-               console.log(response.data.body);
+               // console.log("data body", response.data.body.firstName);
                dispatch(setUser(response.data.body));
                // DATA
                const prenom = response.data.body.firstName;
@@ -62,7 +62,7 @@ function User() {
     */
    useEffect(() => {
       if (token) {
-         console.log("useeffect token: ", token);
+         // console.log("useeffect token: ", token);
          profileFetcher();
       } else if (!token && localStorage.length > 0) {
          setUserFirstName(localStorage.getItem("firstname"));
