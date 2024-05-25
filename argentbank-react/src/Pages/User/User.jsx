@@ -1,4 +1,6 @@
 import "./User.scss";
+import WelcomeUser from "../../components/WelcomeUser/WelcomeUser";
+import EditUser from "../../components/EditUser/EditUser";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -55,14 +57,9 @@ function User() {
             console.log(error);
          });
    };
-   /**
-    * Si TOKEN, alors profileFetcher()
-    * Sinon, LOCALSTORAGE
-    * Sinon, Redirect()
-    */
+
    useEffect(() => {
       if (token) {
-         // console.log("useeffect token: ", token);
          profileFetcher();
       } else if (!token && localStorage.length > 0) {
          setUserFirstName(localStorage.getItem("firstname"));
@@ -70,17 +67,13 @@ function User() {
       } else {
          redirect("/");
       }
-   }, [token]);
+   }, []);
 
    return (
       <>
          <main className="User">
-            <div className="User-Header">
-               <h1>
-                  Welcome back <br /> {userFirstName} {userLastName}!
-               </h1>
-               <button className="User-EditButton">Edit Name</button>
-            </div>
+            <WelcomeUser prenom={userFirstName} nom={userLastName} />
+            <EditUser prenom={userFirstName} nom={userLastName} />
             <h2 className="sr-only">Accounts</h2>
 
             <section className="UserAccount">

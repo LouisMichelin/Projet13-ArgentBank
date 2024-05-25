@@ -5,27 +5,13 @@ import {
    faCircleUser,
    faRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
-import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-// import { getToken } from "../../redux/selectors";
 import { getToken, getUser } from "../../redux/selectors";
 
 function Header() {
    // Setup Redux
    const user = useSelector(getUser);
    const token = useSelector(getToken);
-
-   // useEffect(() => {
-   //    if (token) {
-   //       console.log("header token: ", token);
-   //       console.log("header token FIRSTNAME: ", user.firstName);
-   //       // setUserName(user.firstName);
-   //    } else {
-   //       console.log("header token ELSSSSSSSEEEEEEEE: ", token);
-   //       console.log("header token FIRSTNAME ELSE: ", user.firstName);
-   //       // setUserName(localStorage.getItem("firstname"));
-   //    }
-   // }, []);
 
    return (
       <>
@@ -36,7 +22,7 @@ function Header() {
             </a>
             <div className="HeaderProfileAndSignin">
                {token ? (
-                  <span>
+                  <>
                      <a className="HeaderSignIn" href="/user">
                         <FontAwesomeIcon
                            className="HeaderSignOutLogo"
@@ -55,7 +41,7 @@ function Header() {
                         />
                         Sign Out
                      </a>
-                  </span>
+                  </>
                ) : (
                   <a className="HeaderSignIn" href="/login">
                      <FontAwesomeIcon

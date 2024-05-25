@@ -1,0 +1,41 @@
+.EditForm {
+   display: flex;
+   flex-direction: column;
+}
+// FORMULAIRES
+.EditForm-Inputs {
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   margin-bottom: 12.5px;
+}
+.EditForm input {
+   background-color: white;
+   color: rgba(0, 0, 0, 0.33);
+   font-weight: bolder;
+   width: 150px;
+   margin: 0px 7.5px;
+   padding: 10px;
+   border-radius: 3px;
+   font-size: 1rem;
+   letter-spacing: 0.33px;
+}
+// BUTTONS SAVE/CANCEL
+.EditForm-Buttons {
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+}
+.EditForm-Btn {
+   display: flex;
+   justify-content: center;
+   color: white;
+   background-color: #00bc77;
+   border-color: #00bc77;
+   border-radius: 3px;
+   width: 100px;
+   margin: 0px 7.5px;
+   padding: 5px 10px;
+   font-weight: bold;
+   cursor: pointer;
+}
