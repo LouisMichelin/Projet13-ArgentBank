@@ -1,8 +1,11 @@
 import "./EditUser.scss";
 import { useEffect, useState } from "react";
 
-function EditUser({ prenom, nom, isActive }) {
+function EditUser({ prenom, nom }) {
+   // const [isActive, setIsActive] = useState(false);
    // const redirect = useNavigate();
+   const [newFirstName, setNewFirstName] = useState(prenom);
+   const [newLastName, setNewLastName] = useState(nom);
 
    const editUserNameSubmit = async (event) => {
       event.preventDefault();
@@ -33,20 +36,23 @@ function EditUser({ prenom, nom, isActive }) {
             <form onSubmit={(e) => editUserNameSubmit(e)}>
                <div className="EditForm">
                   <div className="EditForm-Inputs">
-                     <input type="text" value={prenom} />
-                     <input type="text" value={nom} />
+                     <input
+                        onChange={(e) => setNewFirstName(e.target.value)}
+                        type="text"
+                        placeholder={newFirstName}
+                     />
+                     <input
+                        onChange={(e) => setNewLastName(e.target.value)}
+                        type="text"
+                        placeholder={newLastName}
+                     />
                   </div>
-                  <div className="EditForm-Buttons">
+                  {/* <div className="EditForm-Buttons">
                      <button type="submit" className="EditForm-Btn">
                         Save
                      </button>
-                     <button
-                        // onClick={() => redirect("/")}
-                        className="EditForm-Btn"
-                     >
-                        Cancel
-                     </button>
-                  </div>
+                     <button className="EditForm-Btn">Cancel</button>
+                  </div> */}
                </div>
             </form>
          </div>

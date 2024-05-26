@@ -8,11 +8,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { getToken } from "../../redux/selectors";
 import { setUser } from "../../redux/slices/user/userSlice";
 
-function User({ isActive }) {
+function User() {
    // Setup User : FirstName & LastName
    const [userFirstName, setUserFirstName] = useState("");
    const [userLastName, setUserLastName] = useState("");
-   // const [isActive, setIsActive] = useState(false);
+   const [isActive, setIsActive] = useState(false);
 
    // Setup Redux
    const dispatch = useDispatch();
@@ -74,18 +74,39 @@ function User({ isActive }) {
    return (
       <>
          <main className="User">
-            {editClicked ? (
-               <EditUser
-                  prenom={userFirstName}
-                  nom={userLastName}
-                  // btnClicked={() => setEditClicked(!editClicked)}
-               />
+            {isActive ? (
+               <>
+                  <EditUser
+                     prenom={userFirstName}
+                     nom={userLastName}
+                     onClick={() => setIsActive(!isActive)}
+                  />
+                  <div className="EditForm-Buttons">
+                     <button type="submit" className="EditForm-Btn">
+                        Save
+                     </button>
+                     <button
+                        onClick={() => setIsActive(!isActive)}
+                        className="EditForm-Btn"
+                     >
+                        Cancel
+                     </button>
+                  </div>
+               </>
             ) : (
-               <WelcomeUser
-                  prenom={userFirstName}
-                  nom={userLastName}
-                  // btnClicked={() => setEditClicked(!editClicked)}
-               />
+               <>
+                  <WelcomeUser
+                     prenom={userFirstName}
+                     nom={userLastName}
+                     // btnClicked={() => setEditClicked(!editClicked)}
+                  />
+                  <button
+                     onClick={() => setIsActive(!isActive)}
+                     className="User-EditButton"
+                  >
+                     Edit Name
+                  </button>
+               </>
             )}
 
             <h2 className="sr-only">Accounts</h2>
