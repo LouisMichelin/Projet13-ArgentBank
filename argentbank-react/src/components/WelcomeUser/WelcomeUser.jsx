@@ -1,5 +1,4 @@
 import "./WelcomeUser.scss";
-import { useState } from "react";
 
 function WelcomeUser({ prenom, nom, onClick }) {
    return (

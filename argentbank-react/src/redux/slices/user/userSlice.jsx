@@ -9,6 +9,9 @@ const tokenSlice = createSlice({
          console.log("NEWSTATE user:", newState);
          return newState;
       },
+      editUser: (currentState, action) => {
+         const newState = { ...currentState, ...action.payload };
+      },
    },
 });
 

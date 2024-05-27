@@ -27,6 +27,7 @@ function SignIn() {
          .then((response) => {
             if (response.status === 200) {
                const userToken = response.data.body.token;
+               localStorage.setItem("token", userToken);
                dispatch(setToken(userToken));
                redirect("/user");
             }
@@ -42,7 +43,7 @@ function SignIn() {
             <section className="SignIn-Content">
                <FontAwesomeIcon className="SignIn-Logo" icon={faCircleUser} />
                <h1>Sign In</h1>
-               <form onSubmit={(e) => handleSubmit(e)}>
+               <form onSubmit={handleSubmit}>
                   <div className="SignIn-InputWrapper">
                      <label htmlFor="username">Username</label>
                      <input
