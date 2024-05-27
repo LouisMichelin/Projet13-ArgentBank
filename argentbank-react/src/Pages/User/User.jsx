@@ -5,7 +5,10 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getToken } from "../../redux/selectors";
+import {
+   getToken,
+   // getUser
+} from "../../redux/selectors";
 import { setUser } from "../../redux/slices/user/userSlice";
 
 function User() {
@@ -17,7 +20,15 @@ function User() {
    const dispatch = useDispatch();
    const redirect = useNavigate();
    const token = useSelector(getToken);
+   // const user = useSelector(getUser);
+   // console.log("firstname", user.firstName);
    // Function
+
+   useEffect(() => {
+      console.log("SESSION", sessionStorage);
+      console.log("LOCAL", localStorage);
+   }, []);
+
    const profileFetcher = async () => {
       const API_URL = "http://127.0.0.1:3001/api/v1/user/profile";
       // AXIOS
@@ -45,9 +56,14 @@ function User() {
                // DATA
                const prenom = response.data.body.firstName;
                const nom = response.data.body.lastName;
-               // LOCALSTORAGE
-               localStorage.setItem("firstname", prenom);
-               localStorage.setItem("lastname", nom);
+               // Local & Session Storages
+               if (localStorage.getItem("token")) {
+                  localStorage.setItem("firstname", prenom);
+                  localStorage.setItem("lastname", nom);
+               } else if (sessionStorage.getItem("token")) {
+                  sessionStorage.setItem("firstname", prenom);
+                  sessionStorage.setItem("lastname", nom);
+               }
                // USESTATE
                setUserFirstName(prenom);
                setUserLastName(nom);
@@ -64,8 +80,11 @@ function User() {
       } else if (!token && localStorage.length > 0) {
          setUserFirstName(localStorage.getItem("firstname"));
          setUserLastName(localStorage.getItem("lastname"));
+      } else if (!token && sessionStorage.length > 0) {
+         setUserFirstName(sessionStorage.getItem("firstname"));
+         setUserLastName(sessionStorage.getItem("lastname"));
       } else {
-         redirect("/");
+         redirect("/login");
       }
    }, []);
 

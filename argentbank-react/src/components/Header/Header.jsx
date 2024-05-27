@@ -12,6 +12,11 @@ function Header() {
    // Setup Redux
    const user = useSelector(getUser);
    const token = useSelector(getToken);
+   // Clear Local & Session Storages
+   function clearStorages() {
+      localStorage.clear();
+      sessionStorage.clear();
+   }
 
    return (
       <>
@@ -33,7 +38,7 @@ function Header() {
                      <a
                         className="HeaderSignIn"
                         href="/login"
-                        onClick={() => localStorage.clear()}
+                        onClick={() => clearStorages()}
                      >
                         <FontAwesomeIcon
                            className="HeaderSignInLogo"

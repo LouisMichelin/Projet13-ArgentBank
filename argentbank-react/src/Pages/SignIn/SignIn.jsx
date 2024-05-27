@@ -11,10 +11,11 @@ function SignIn() {
    // Setup User Inputs
    const [userName, setUserName] = useState("");
    const [userPassword, setUserPassword] = useState("");
+   const [isBoxChecked, setIsBoxChecked] = useState(false);
    // Setup Redux
    const dispatch = useDispatch();
    const redirect = useNavigate();
-
+   // Function
    const handleSubmit = async (event) => {
       event.preventDefault();
       const API_URL = "http://127.0.0.1:3001/api/v1/user/login";
@@ -27,7 +28,9 @@ function SignIn() {
          .then((response) => {
             if (response.status === 200) {
                const userToken = response.data.body.token;
-               localStorage.setItem("token", userToken);
+               isBoxChecked
+                  ? localStorage.setItem("token", userToken)
+                  : sessionStorage.setItem("token", userToken);
                dispatch(setToken(userToken));
                redirect("/user");
             }
@@ -65,7 +68,11 @@ function SignIn() {
                      />
                   </div>
                   <div className="SignIn-InputRemember">
-                     <input type="checkbox" id="remember-me" />
+                     <input
+                        onChange={() => setIsBoxChecked(!isBoxChecked)}
+                        type="checkbox"
+                        id="remember-me"
+                     />
                      <label htmlFor="remember-me">Remember me</label>
                   </div>
                   <button className="SignIn-Button">Sign In</button>
