@@ -77,10 +77,10 @@ function User() {
    useEffect(() => {
       if (token) {
          profileFetcher();
-      } else if (!token && localStorage.length > 0) {
+      } else if (!token && localStorage.getItem("token")) {
          setUserFirstName(localStorage.getItem("firstname"));
          setUserLastName(localStorage.getItem("lastname"));
-      } else if (!token && sessionStorage.length > 0) {
+      } else if (!token && sessionStorage.getItem("token")) {
          setUserFirstName(sessionStorage.getItem("firstname"));
          setUserLastName(sessionStorage.getItem("lastname"));
       } else {
