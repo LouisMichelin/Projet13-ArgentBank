@@ -13,14 +13,12 @@ function User() {
    const [userFirstName, setUserFirstName] = useState("");
    const [userLastName, setUserLastName] = useState("");
    const [isActive, setIsActive] = useState(false);
-
    // Setup Redux
    const dispatch = useDispatch();
    const redirect = useNavigate();
    const token = useSelector(getToken);
-
+   // Function
    const profileFetcher = async () => {
-      // console.log("voici le token de <USER/>:", token);
       const API_URL = "http://127.0.0.1:3001/api/v1/user/profile";
       // AXIOS
       await axios

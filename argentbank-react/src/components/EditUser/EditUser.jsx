@@ -1,35 +1,25 @@
 import "./EditUser.scss";
 import axios from "axios";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getToken, getUser } from "../../redux/selectors";
-import {
-   editUserFirstName,
-   editUserLastName,
-} from "../../redux/slices/user/userSlice";
-import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { getToken } from "../../redux/selectors";
 
 function EditUser({ prenom, nom, onClick }) {
-   // const redirect = useNavigate();
-   const [newFirstName, setNewFirstName] = useState(prenom);
-   const [newLastName, setNewLastName] = useState(nom);
+   // Edit UserData: FirstName & LastName
+   const [firstNameEdited, setFirstNameEdited] = useState(prenom);
+   const [lastNameEdited, setLastNameEdited] = useState(nom);
    // Setup Redux
-   const dispatch = useDispatch();
-   // const redirect = useNavigate();
-   const user = useSelector(getUser);
    const token = useSelector(getToken);
-
-   const editUserNameSubmit = async (event) => {
-      event.preventDefault();
-      // console.log(newFirstName, newLastName);
+   // Function
+   const editUserNameSubmit = async () => {
       const API_URL = "http://127.0.0.1:3001/api/v1/user/profile";
       // AXIOS
       await axios
          .put(
             API_URL,
             {
-               firstName: newFirstName,
-               lastName: newLastName,
+               firstName: firstNameEdited,
+               lastName: lastNameEdited,
             },
             {
                headers: {
@@ -38,24 +28,10 @@ function EditUser({ prenom, nom, onClick }) {
             }
          )
          .then((response) => {
-            console.log("IS VALUE NULL ?", newFirstName);
-            console.log("voici la réponse:", response);
-
-            if (newFirstName.length > 0) {
-               console.log("oui, firstname est > 0"), newFirstName;
-               // setNewFirstName(prenom);
-            } else if (newFirstName.length === 0) {
-               console.log("non là la LENGTH est null");
-               console.log("prenom:", user.firstName);
-               return setNewFirstName(user.firstName);
-               // dispatch(editUserFirstName(newFirstName));
+            if (response.ok) {
+               setFirstNameEdited(firstNameEdited);
+               setLastNameEdited(lastNameEdited);
             }
-            // if (newLastName)
-            // dispatch(editUserLastName(newLastName));
-
-            // DATA
-            // const actualFirstname = response.data.body.firstName;
-            // const actualName = response.data.body.lastName;
          })
          .catch((error) => {
             console.log(error);
@@ -66,33 +42,35 @@ function EditUser({ prenom, nom, onClick }) {
       <>
          <div className="User-Header">
             <h1>Welcome back</h1>
-            <form onSubmit={editUserNameSubmit}>
+            <form onSubmit={(e) => editUserNameSubmit(e)}>
                <div className="EditForm">
                   <div className="EditForm-Inputs">
                      <input
                         id="userPrenom"
                         type="text"
                         placeholder={prenom}
-                        value={newFirstName}
-                        onChange={(e) => setNewFirstName(e.target.value)}
+                        value={firstNameEdited}
+                        onChange={(e) => setFirstNameEdited(e.target.value)}
+                        required={true}
                      />
                      <input
                         id="userNom"
                         type="text"
                         placeholder={nom}
-                        value={newLastName}
-                        onChange={(e) => setNewLastName(e.target.value)}
+                        value={lastNameEdited}
+                        onChange={(e) => setLastNameEdited(e.target.value)}
+                        required={true}
                      />
                   </div>
                   <div className="EditForm-Buttons">
-                     <button
-                        onClick={editUserNameSubmit}
-                        type="submit"
-                        className="EditForm-Btn"
-                     >
+                     <button type="submit" className="EditForm-Btn">
                         Save
                      </button>
-                     <button onClick={onClick} className="EditForm-Btn">
+                     <button
+                        onClick={onClick}
+                        type="button"
+                        className="EditForm-Btn"
+                     >
                         Cancel
                      </button>
                   </div>
