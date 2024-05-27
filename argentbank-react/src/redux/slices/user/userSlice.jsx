@@ -9,11 +9,19 @@ const tokenSlice = createSlice({
          console.log("NEWSTATE user:", newState);
          return newState;
       },
-      editUser: (currentState, action) => {
-         const newState = { ...currentState, ...action.payload };
+      editUserFirstName: (currentState, action) => {
+         const newState = { ...currentState, firstName: action.payload };
+         console.log("EDITED USER", newState);
+         return newState;
+      },
+      editUserLastName: (currentState, action) => {
+         const newState = { ...currentState, lastName: action.payload };
+         console.log("EDITED USER", newState);
+         return newState;
       },
    },
 });
 
 export default tokenSlice.reducer;
-export const { setUser } = tokenSlice.actions;
+export const { setUser, editUserFirstName, editUserLastName } =
+   tokenSlice.actions;
