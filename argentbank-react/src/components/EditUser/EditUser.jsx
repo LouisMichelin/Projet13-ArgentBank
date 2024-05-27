@@ -1,8 +1,7 @@
 import "./EditUser.scss";
 import { useEffect, useState } from "react";
 
-function EditUser({ prenom, nom }) {
-   // const [isActive, setIsActive] = useState(false);
+function EditUser({ prenom, nom, onClick }) {
    // const redirect = useNavigate();
    const [newFirstName, setNewFirstName] = useState(prenom);
    const [newLastName, setNewLastName] = useState(nom);
@@ -47,12 +46,14 @@ function EditUser({ prenom, nom }) {
                         placeholder={newLastName}
                      />
                   </div>
-                  {/* <div className="EditForm-Buttons">
+                  <div className="EditForm-Buttons">
                      <button type="submit" className="EditForm-Btn">
                         Save
                      </button>
-                     <button className="EditForm-Btn">Cancel</button>
-                  </div> */}
+                     <button onClick={onClick} className="EditForm-Btn">
+                        Cancel
+                     </button>
+                  </div>
                </div>
             </form>
          </div>

@@ -75,42 +75,19 @@ function User() {
       <>
          <main className="User">
             {isActive ? (
-               <>
-                  <EditUser
-                     prenom={userFirstName}
-                     nom={userLastName}
-                     onClick={() => setIsActive(!isActive)}
-                  />
-                  <div className="EditForm-Buttons">
-                     <button type="submit" className="EditForm-Btn">
-                        Save
-                     </button>
-                     <button
-                        onClick={() => setIsActive(!isActive)}
-                        className="EditForm-Btn"
-                     >
-                        Cancel
-                     </button>
-                  </div>
-               </>
+               <EditUser
+                  prenom={userFirstName}
+                  nom={userLastName}
+                  onClick={() => setIsActive(!isActive)}
+               />
             ) : (
-               <>
-                  <WelcomeUser
-                     prenom={userFirstName}
-                     nom={userLastName}
-                     // btnClicked={() => setEditClicked(!editClicked)}
-                  />
-                  <button
-                     onClick={() => setIsActive(!isActive)}
-                     className="User-EditButton"
-                  >
-                     Edit Name
-                  </button>
-               </>
+               <WelcomeUser
+                  prenom={userFirstName}
+                  nom={userLastName}
+                  onClick={() => setIsActive(!isActive)}
+               />
             )}
-
             <h2 className="sr-only">Accounts</h2>
-
             <section className="UserAccount">
                <div className="UserAccount-ContentWrapper">
                   <h3>Argent Bank Checking (x8349)</h3>
