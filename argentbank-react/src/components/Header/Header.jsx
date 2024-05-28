@@ -17,10 +17,10 @@ function Header() {
    const dispatch = useDispatch();
    // Clear Local & Session Storages
    function clearStorages() {
-      localStorage.clear();
-      sessionStorage.clear();
       dispatch(removeToken());
       dispatch(removeUser());
+      localStorage.clear();
+      sessionStorage.clear();
    }
 
    return (

@@ -4,8 +4,8 @@ const tokenSlice = createSlice({
    name: "token",
    initialState: {},
    reducers: {
-      setToken: (state, action) => {
-         const newState = { ...state, token: action.payload };
+      setToken: (currentState, action) => {
+         const newState = { ...currentState, token: action.payload };
          console.log("NEWSTATE TOKEN:", newState);
          return newState;
       },

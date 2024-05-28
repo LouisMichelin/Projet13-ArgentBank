@@ -22,13 +22,8 @@ function User() {
    const token = useSelector(getToken);
    // const user = useSelector(getUser);
    // console.log("firstname", user.firstName);
+
    // Function
-
-   useEffect(() => {
-      console.log("SESSION", sessionStorage);
-      console.log("LOCAL", localStorage);
-   }, []);
-
    const profileFetcher = async () => {
       const API_URL = "http://127.0.0.1:3001/api/v1/user/profile";
       // AXIOS
@@ -77,15 +72,23 @@ function User() {
    useEffect(() => {
       if (token) {
          profileFetcher();
-      } else if (!token && localStorage.getItem("token")) {
-         setUserFirstName(localStorage.getItem("firstname"));
-         setUserLastName(localStorage.getItem("lastname"));
-      } else if (!token && sessionStorage.getItem("token")) {
-         setUserFirstName(sessionStorage.getItem("firstname"));
-         setUserLastName(sessionStorage.getItem("lastname"));
       } else {
          redirect("/login");
       }
+   }, []);
+
+   useEffect(() => {
+      console.log("-----LE TOKEN-----", token);
+      console.log("---------------");
+      console.log("-----SESSION-----", sessionStorage);
+      console.log("-----SESSION prenom-----", sessionStorage.firstname);
+      console.log("-----SESSION nom-----", sessionStorage.lastname);
+      console.log("---------------");
+      console.log("-----LOCAL-----", localStorage);
+      console.log("-----LOCAL prenom-----", localStorage.firstname);
+      console.log("-----LOCAL nom-----", localStorage.lastname);
+      console.log("---------------");
+      console.log("---------------");
    }, []);
 
    return (

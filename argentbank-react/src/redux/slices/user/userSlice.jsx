@@ -6,17 +6,15 @@ const tokenSlice = createSlice({
    reducers: {
       setUser: (currentState, action) => {
          const newState = { ...currentState, ...action.payload };
-         console.log("NEWSTATE user:", newState);
+         console.log("SET user:", newState);
          return newState;
       },
       editUserFirstName: (currentState, action) => {
          const newState = { ...currentState, firstName: action.payload };
-         console.log("EDITED USER", newState);
          return newState;
       },
       editUserLastName: (currentState, action) => {
          const newState = { ...currentState, lastName: action.payload };
-         console.log("EDITED USER", newState);
          return newState;
       },
       removeUser: () => {
