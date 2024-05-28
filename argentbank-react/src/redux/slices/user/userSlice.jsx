@@ -19,9 +19,12 @@ const tokenSlice = createSlice({
          console.log("EDITED USER", newState);
          return newState;
       },
+      removeUser: () => {
+         return {};
+      },
    },
 });
 
 export default tokenSlice.reducer;
-export const { setUser, editUserFirstName, editUserLastName } =
+export const { setUser, editUserFirstName, editUserLastName, removeUser } =
    tokenSlice.actions;

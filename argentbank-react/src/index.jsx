@@ -13,8 +13,8 @@ import Header from "./components/Header/Header.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
    <React.StrictMode>
-      <PersistGate persistor={persistor}>
-         <Provider store={store}>
+      <Provider store={store}>
+         <PersistGate persistor={persistor}>
             <Router>
                <Header />
                <Routes>
@@ -24,7 +24,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
                </Routes>
                <Footer />
             </Router>
-         </Provider>
-      </PersistGate>
+         </PersistGate>
+      </Provider>
    </React.StrictMode>
 );

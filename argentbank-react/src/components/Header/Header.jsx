@@ -5,17 +5,22 @@ import {
    faCircleUser,
    faRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { getToken, getUser } from "../../redux/selectors";
+import { removeToken } from "../../redux/slices/token/tokenSlice";
+import { removeUser } from "../../redux/slices/user/userSlice";
 
 function Header() {
    // Setup Redux
    const user = useSelector(getUser);
    const token = useSelector(getToken);
+   const dispatch = useDispatch();
    // Clear Local & Session Storages
    function clearStorages() {
       localStorage.clear();
       sessionStorage.clear();
+      dispatch(removeToken());
+      dispatch(removeUser());
    }
 
    return (
