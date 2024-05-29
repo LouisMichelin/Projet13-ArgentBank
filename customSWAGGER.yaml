@@ -28,7 +28,7 @@ paths:
         "200":
           description: User Account retrieved successully
           schema:
-            $ref: "#/definitions/AccountResponse"
+            $ref: "#/definitions/Account"
         "400":
           description: Invalid Fields
         "500":
@@ -50,7 +50,31 @@ paths:
         - application/json
       responses:
         "200":
-          description: User Account Transaction edited successully
+          description: User Account Transaction loaded successully
+          schema:
+            $ref: "#/definitions/Transaction"
+        "400":
+          description: Invalid Fields
+        "500":
+          description: Internal Server Error
+  /user/account/transaction:
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Transaction Category and Note API
+      description: API for updating a user transaction's Category and Notes
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Transaction updated successully
           schema:
             $ref: "#/definitions/TransactionResponse"
         "400":
@@ -63,27 +87,16 @@ securityDefinitions:
     name: Authorization
     in: header
 definitions:
-  AccountResponse:
-    type: object
+  Account:
     properties:
-      status:
-        type: integer
-      message:
+      id:
         type: string
-      body:
+      balance:
+        type: string
+      transactions:
         type: object
-        properties:
-          id:
-            type: string
-          balance:
-            type: string
-          transactions:
-            type: object
-  TransactionResponse:
-    type: object
+  Transaction:
     properties:
-      message:
-        type: string
       body:
         type: object
         properties:
@@ -96,6 +109,22 @@ definitions:
           amount:
             type: string
           transactionType:
+            type: string
+          category:
+            type: string
+          notes:
+            type: string
+  TransactionResponse:
+    type: object
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: object
+        properties:
+          id:
             type: string
           category:
             type: string
