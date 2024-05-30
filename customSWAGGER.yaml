@@ -9,14 +9,13 @@ basePath: /api/v1
 schemes:
    - http
 paths:
-
   /user/account{id}:
     post:
       security:
         - Bearer: []
       tags:
         - Account Module
-      summary: Account
+      summary: Account API
       description: API for Account
       parameters:
         - in: path
@@ -33,22 +32,22 @@ paths:
         - application/json
       responses:
         "200":
-          description: Account retrieved successully
+          description: Account retrieved successfully
           schema:
             $ref: "#/definitions/Account"
         "400":
           description: Invalid Fields
         "500":
           description: Internal Server Error
-
+# -----------------------------------------------------------------
   /user/account{id}/transaction{id}:
     post:
       security:
         - Bearer: []
       tags:
-        - Transaction Module
-      summary: Transaction
-      description: API for Account Transactions
+        - Account Module
+      summary: Transaction details API
+      description: API for fetching a Transaction
       parameters:
         - in: path
           name: id
@@ -60,32 +59,25 @@ paths:
           name: Authorization
           description: Attach Bearer JWT token
           required: true
-        - in: body
-          name: body
-          description: Transaction Payload
-          required: true
-          schema:
-            $ref: '#/definitions/Transaction'
       produces:
         - application/json
       responses:
         "200":
-          description: User Account Transaction loaded successully
+          description: Transaction loaded successfully
           schema:
             $ref: "#/definitions/Transaction"
         "400":
           description: Invalid Fields
         "500":
           description: Internal Server Error
-
-
+# -----------------------------------------------------------------
     patch:
       security:
         - Bearer: []
       tags:
-        - Transaction Module
-      summary: Transaction Category and Note API
-      description: API for updating a user transaction's Category and Notes
+        - Account Module
+      summary: Transaction details API
+      description: API for updating a Transaction
       parameters:
         - in: path
           name: id
@@ -99,32 +91,28 @@ paths:
           required: true
         - in: body
           name: body
-          description: Update transaction category and notes
+          description: Update transaction category and notes attributes
           required: true
           schema:
-            $ref: "#/definitions/TransactionResponse"
+            $ref: "#/definitions/CustomTransaction"
       produces:
         - application/json
       responses:
         "200":
-          description: Transaction updated successully
+          description: Transaction updated successfully
           schema:
-            $ref: "#/definitions/TransactionResponse"
+            $ref: "#/definitions/Transaction"
         "400":
           description: Invalid Fields
         "500":
           description: Internal Server Error
-
-
-
+# -----------------------------------------------------------------
 securityDefinitions:
   Bearer:
     type: apiKey
     name: Authorization
     in: header
-
 definitions:
-
   Account:
     type: object
     properties:
@@ -134,20 +122,6 @@ definitions:
         type: string
       transactions:
         type: object
-
-  CustomTransaction:
-    type: object
-    properties:
-      category:
-        type: string
-      notes:
-        type: string
-
-  Transaction:
-    type: object
-    properties:
-      body:
-        type: object
         properties:
           id:
             type: string
@@ -156,6 +130,25 @@ definitions:
           description:
             type: string
           amount:
+            type: string
+  CustomTransaction:
+    type: object
+    properties:
+      category:
+        type: string
+      notes:
+        type: string
+  Transaction:
+    type: object
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: object
+        properties:
+          id:
             type: string
           transactionType:
             type: string
