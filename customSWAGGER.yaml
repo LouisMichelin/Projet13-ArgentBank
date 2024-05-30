@@ -9,7 +9,7 @@ basePath: /api/v1
 schemes:
    - http
 paths:
-  /user/account/:
+  /user/account{id}:
     post:
       security:
         - Bearer: []
@@ -19,6 +19,7 @@ paths:
       description: API for Account
       parameters:
         - in: header
+          type: string
           name: Authorization
           description: Attach Bearer JWT token
           required: true
@@ -26,26 +27,64 @@ paths:
         - application/json
       responses:
         "200":
-          description: User Account retrieved successully
+          description: Account retrieved successully
           schema:
             $ref: "#/definitions/Account"
         "400":
           description: Invalid Fields
         "500":
           description: Internal Server Error
-  /user/account/transaction:
+
+  /user/account{id}/transaction{id}:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /user/profile/account/transaction:
     post:
       security:
         - Bearer: []
       tags:
         - Transaction Module
       summary: Transaction
-      description: API for Account Transaction
+      description: API for Account Transactions
       parameters:
         - in: header
+          type: string
           name: Authorization
           description: Attach Bearer JWT token
           required: true
+        - in: body
+          name: body
+          description: Transaction Payload
+          required: true
+          schema:
+            $ref: '#/definitions/Transaction'
       produces:
         - application/json
       responses:
@@ -57,8 +96,8 @@ paths:
           description: Invalid Fields
         "500":
           description: Internal Server Error
-  /user/account/transaction:
-    put:
+
+    patch:
       security:
         - Bearer: []
       tags:
@@ -67,9 +106,16 @@ paths:
       description: API for updating a user transaction's Category and Notes
       parameters:
         - in: header
+          type: string
           name: Authorization
           description: Attach Bearer JWT token
           required: true
+        - in: body
+          name: body
+          description: Update transaction category and notes
+          required: true
+          schema:
+            $ref: "#/definitions/TransactionResponse"
       produces:
         - application/json
       responses:
@@ -81,13 +127,35 @@ paths:
           description: Invalid Fields
         "500":
           description: Internal Server Error
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 securityDefinitions:
   Bearer:
     type: apiKey
     name: Authorization
     in: header
+
 definitions:
+
   Account:
+    type: object
     properties:
       id:
         type: string
@@ -95,7 +163,19 @@ definitions:
         type: string
       transactions:
         type: object
+
+  CustomTransaction:
+    type: object
+    properties:
+      id:
+        type: string
+      category:
+        type: string
+      notes:
+        type: string
+
   Transaction:
+    type: object
     properties:
       body:
         type: object
@@ -109,22 +189,6 @@ definitions:
           amount:
             type: string
           transactionType:
-            type: string
-          category:
-            type: string
-          notes:
-            type: string
-  TransactionResponse:
-    type: object
-    properties:
-      status:
-        type: integer
-      message:
-        type: string
-      body:
-        type: object
-        properties:
-          id:
             type: string
           category:
             type: string
