@@ -9,6 +9,7 @@ basePath: /api/v1
 schemes:
    - http
 paths:
+
   /user/account{id}:
     post:
       security:
@@ -18,6 +19,11 @@ paths:
       summary: Account
       description: API for Account
       parameters:
+        - in: path
+          name: id
+          description: ID of Account
+          required: true
+          type: string
         - in: header
           type: string
           name: Authorization
@@ -36,36 +42,6 @@ paths:
           description: Internal Server Error
 
   /user/account{id}/transaction{id}:
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  /user/profile/account/transaction:
     post:
       security:
         - Bearer: []
@@ -74,6 +50,11 @@ paths:
       summary: Transaction
       description: API for Account Transactions
       parameters:
+        - in: path
+          name: id
+          description: ID of Transaction
+          required: true
+          type: string
         - in: header
           type: string
           name: Authorization
@@ -97,6 +78,7 @@ paths:
         "500":
           description: Internal Server Error
 
+
     patch:
       security:
         - Bearer: []
@@ -105,6 +87,11 @@ paths:
       summary: Transaction Category and Note API
       description: API for updating a user transaction's Category and Notes
       parameters:
+        - in: path
+          name: id
+          description: ID of Transaction
+          required: true
+          type: string
         - in: header
           type: string
           name: Authorization
@@ -130,22 +117,6 @@ paths:
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 securityDefinitions:
   Bearer:
     type: apiKey
@@ -167,8 +138,6 @@ definitions:
   CustomTransaction:
     type: object
     properties:
-      id:
-        type: string
       category:
         type: string
       notes:
