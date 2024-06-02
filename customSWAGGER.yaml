@@ -9,25 +9,37 @@ basePath: /api/v1
 schemes:
    - http
 paths:
-  /user/account{id}:
-    post:
-      security:
-        - Bearer: []
+# -----------------------------------------------------------------
+  /accounts:
+    get:
+      tags:
+        - Account Module
+      summary: Every Accounts API
+      description: API for every Accounts
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Every Accounts retrieved successfully
+          schema:
+            $ref: "#/definitions/EveryAccounts"
+        "400":
+          description: Invalid Fields
+        "500":
+          description: Internal Server Error
+# -----------------------------------------------------------------
+  /accounts/account{id}:
+    get:
       tags:
         - Account Module
       summary: Account API
-      description: API for Account
+      description: API for a single Account
       parameters:
         - in: path
           name: id
           description: ID of Account
           required: true
           type: string
-        - in: header
-          type: string
-          name: Authorization
-          description: Attach Bearer JWT token
-          required: true
       produces:
         - application/json
       responses:
@@ -40,104 +52,115 @@ paths:
         "500":
           description: Internal Server Error
 # -----------------------------------------------------------------
-  /user/account{id}/transaction{id}:
-    post:
-      security:
-        - Bearer: []
-      tags:
-        - Account Module
-      summary: Transaction details API
-      description: API for fetching a Transaction
+  /transactions/{accountId}/{dateDebut}/{dateFin}:
+    get:
+      tags: Transaction Module
+      summary: Every Transactions API 
+      description: API for fetching every Transactions of a user Account over a specified amount of time
       parameters:
-        - in: path
-          name: id
-          description: ID of Transaction
-          required: true
-          type: string
-        - in: header
-          type: string
-          name: Authorization
-          description: Attach Bearer JWT token
-          required: true
-      produces:
-        - application/json
-      responses:
-        "200":
-          description: Transaction loaded successfully
-          schema:
-            $ref: "#/definitions/Transaction"
-        "400":
-          description: Invalid Fields
-        "500":
-          description: Internal Server Error
+        # - in: path
+        # name: id
+        # description: ID of Transaction
+        # required: true
+        # type: string
+
+
+
+
 # -----------------------------------------------------------------
-    patch:
-      security:
-        - Bearer: []
-      tags:
-        - Account Module
-      summary: Transaction details API
-      description: API for updating a Transaction
-      parameters:
-        - in: path
-          name: id
-          description: ID of Transaction
-          required: true
-          type: string
-        - in: header
-          type: string
-          name: Authorization
-          description: Attach Bearer JWT token
-          required: true
-        - in: body
-          name: body
-          description: Update transaction category and notes attributes
-          required: true
-          schema:
-            $ref: "#/definitions/CustomTransaction"
-      produces:
-        - application/json
-      responses:
-        "200":
-          description: Transaction updated successfully
-          schema:
-            $ref: "#/definitions/Transaction"
-        "400":
-          description: Invalid Fields
-        "500":
-          description: Internal Server Error
+/transactions/{accountId}/{transactionId}:
+  get:
+    tags:
+      - Transaction Module
+    summary: Transaction details API
+    description: 
+    parameters:
+      # - in: path
+      #   name: id
+      #   description: ID of Transaction
+      #   required: true
+      #   type: string
+    produces:
+      - application/json
+    responses:
+      "200":
+        description: Transactions loaded successfully
+        schema:
+          $ref: "#/definitions/Transaction"
+      "400":
+        description: Invalid Fields
+      "500":
+        description: Internal Server Error
+# -----------------------------------------------------------------
+  patch:
+    security:
+      - Bearer: []
+    tags:
+      - Transaction Module
+    summary: Transaction details API
+    description: API for updating a Transaction
+    parameters:
+      - in: path
+        name: id
+        description: ID of Transaction
+        required: true
+        type: string
+      - in: header
+        type: string
+        name: Authorization
+        description: Attach Bearer JWT token
+        required: true
+      - in: body
+        name: body
+        description: Update transaction category and notes attributes
+        required: true
+        schema:
+          $ref: "#/definitions/CustomTransaction"
+    produces:
+      - application/json
+    responses:
+      "200":
+        description: Transaction updated successfully
+        schema:
+          $ref: "#/definitions/Transaction"
+      "400":
+        description: Invalid Fields
+      "500":
+        description: Internal Server Error
+# -----------------------------------------------------------------
+# -----------------------------------------------------------------
 # -----------------------------------------------------------------
 securityDefinitions:
   Bearer:
     type: apiKey
     name: Authorization
     in: header
+# -----------------------------------------------------------------
 definitions:
+  EveryAccounts:
+    type: object
+    properties:
+      id:
+        type: string
+      title:
+        type: string
+      balance:
+        type: string
+      description:
+        type: string
+# -----------------------------------------------------------------
   Account:
     type: object
     properties:
       id:
         type: string
+      title:
+        type: string
       balance:
         type: string
-      transactions:
-        type: object
-        properties:
-          id:
-            type: string
-          date:
-            type: string
-          description:
-            type: string
-          amount:
-            type: string
-  CustomTransaction:
-    type: object
-    properties:
-      category:
+      description:
         type: string
-      notes:
-        type: string
+# -----------------------------------------------------------------
   Transaction:
     type: object
     properties:
@@ -156,3 +179,31 @@ definitions:
             type: string
           notes:
             type: string
+ # transactions:
+      #   type: object
+      #   properties:
+      #     id:
+      #       type: string
+      #     date:
+      #       type: string
+      #     description:
+      #       type: string
+      #     amount:
+      #       type: string
+      #     balance:
+      #       type: string
+# -----------------------------------------------------------------
+
+
+
+
+
+
+  CustomTransaction:
+    type: object
+    properties:
+      category:
+        type: string
+      notes:
+        type: string
+# -----------------------------------------------------------------
