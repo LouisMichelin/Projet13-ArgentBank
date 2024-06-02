@@ -9,7 +9,6 @@ basePath: /api/v1
 schemes:
    - http
 paths:
-# -----------------------------------------------------------------
   /accounts:
     get:
       tags:
@@ -24,6 +23,12 @@ paths:
           description: Every Accounts retrieved successfully
           schema:
             $ref: "#/definitions/EveryAccounts"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Accounts not found"
+      security:
+      - api_key: []
 # -----------------------------------------------------------------
   /accounts/account{id}:
     get:
@@ -45,30 +50,39 @@ paths:
           description: Account retrieved successfully
           schema:
             $ref: "#/definitions/Account"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Account not found"
+      security:
+      - api_key: []
+# -----------------------------------------------------------------
+  # /transactions:
+  #   get:
+  #     tags:
+  #       - Transaction Module
+  #     summary: Every Transactions API 
+  #     description: API for fetching every Transactions of a user Account over a specified amount of time
+  #     operationId: getEveryTransactions
+  #     produces:
+  #     - application/json
+  #     responses:
+  #       "200":
+  #         description: Transactions loaded successfully
+  #         schema:
+  #           $ref: "#/definitions/EveryTransactions"
+  #       "400":
+  #         description: "Invalid ID supplied"
+  #       "404":
+  #         description: "Transactions not found"
 # -----------------------------------------------------------------
   /transactions/{accountId}/{dateDebut}/{dateFin}:
     get:
-      tags: Transaction Module
+      tags:
+        - Transaction Module
       summary: Every Transactions API 
       description: API for fetching every Transactions of a user Account over a specified amount of time
-      operationId: getEveryTransactions
+      operationId: getSelectedTransactions
       parameters:
         - in: path
           name: accountId
@@ -91,82 +105,86 @@ paths:
         "200":
           description: Transactions loaded successfully
           schema:
-            $ref: "#/definitions/EveryTransactions"
-        # "400":
-        #   description: Invalid Fields
-        # "500":
-        #   description: Internal Server Error
+            $ref: "#/definitions/SelectedTransactions"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Transactions not found"
+      security:
+      - api_key: []
 # -----------------------------------------------------------------
-/transactions/{accountId}/{transactionId}:
-  get:
-    tags:
-      - Transaction Module
-    summary: Transaction API
-    description: API for Details of a Transaction
-    operationId: getTransaction
-    parameters:
-      - in: path
-        name: accountId
-        description: ID of Selected User Account
-        required: true
-        type: string
-      - in: path
-        name: transactionId
-        description: ID of Selected Transaction
-        required: true
-        type: string
-    produces:
-      - application/json
-    responses:
-      "200":
-        description: Transactions loaded successfully
-        schema:
-          $ref: "#/definitions/Transaction"
-      # "400":
-      #   description: Invalid Fields
-      # "500":
-      #   description: Internal Server Error
+  /transactions/{accountId}/{transactionId}:
+    get:
+      tags:
+        - Transaction Module
+      summary: Transaction API
+      description: API for Details of a Transaction
+      operationId: listTransactionInfos
+      parameters:
+        - in: path
+          name: accountId
+          description: ID of Selected User Account
+          required: true
+          type: string
+        - in: path
+          name: transactionId
+          description: ID of Selected Transaction
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Transactions loaded successfully
+          schema:
+            $ref: "#/definitions/Transaction"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Transaction not found"
+      security:
+      - api_key: []
 # -----------------------------------------------------------------
-  patch:
-    security:
-      - Bearer: []
-    tags:
-      - Transaction Module
-    summary: Transaction Update API
-    description: API for updating a Transaction's Category & Notes
-    parameters:
-      - in: header
-        type: string
-        name: Authorization
-        description: Attach Bearer JWT token
-        required: true
-      - in: path
-        name: accountId
-        description: ID of Selected User Account
-        required: true
-        type: string
-      - in: path
-        name: transactionId
-        description: ID of Selected Transaction
-        required: true
-        type: string
-      - in: body
-        name: body
-        description: Update transaction category and notes attributes
-        required: true
-        schema:
-          $ref: "#/definitions/CustomizeTransaction"
-    produces:
-      - application/json
-    responses:
-      "200":
-        description: Transaction updated successfully
-        schema:
-          $ref: "#/definitions/Transaction"
-      "400":
-        description: Invalid Fields
-      "500":
-        description: Internal Server Error
+    patch:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Transaction Update API
+      description: API for updating a Transaction's Category & Notes
+      parameters:
+        - in: header
+          type: string
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+        - in: path
+          name: accountId
+          description: ID of Selected User Account
+          required: true
+          type: string
+        - in: path
+          name: transactionId
+          description: ID of Selected Transaction
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Update transaction category and notes attributes
+          required: true
+          schema:
+            $ref: "#/definitions/CustomizeTransaction"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Transaction updated successfully
+          schema:
+            $ref: "#/definitions/Transaction"
+        "400":
+          description: Invalid Fields
+        "500":
+          description: Internal Server Error
 # -----------------------------------------------------------------
 # -----------------------------------------------------------------
 # -----------------------------------------------------------------
@@ -175,6 +193,10 @@ securityDefinitions:
     type: apiKey
     name: Authorization
     in: header
+  api_key:
+    type: "apiKey"
+    name: "api_key"
+    in: "header"
 # -----------------------------------------------------------------
 definitions:
   EveryAccounts:
@@ -208,6 +230,22 @@ definitions:
     properties:
       id:
         type: string
+      # date:
+      #   type: string
+      description:
+        type: string
+      amount:
+        type: string
+      balance:
+        type: string
+# -----------------------------------------------------------------
+  SelectedTransactions:
+    type: object
+    properties:
+      id:
+        type: string
+      accountId:
+        type: string
       date:
         type: string
       description:
@@ -217,6 +255,32 @@ definitions:
       balance:
         type: string
 # -----------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   Transaction:
     type: object
     properties:
