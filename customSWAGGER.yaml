@@ -16,6 +16,7 @@ paths:
         - Account Module
       summary: Every Accounts API
       description: API for every Accounts
+      operationId: getEveryAccounts
       produces:
         - application/json
       responses:
@@ -23,10 +24,6 @@ paths:
           description: Every Accounts retrieved successfully
           schema:
             $ref: "#/definitions/EveryAccounts"
-        "400":
-          description: Invalid Fields
-        "500":
-          description: Internal Server Error
 # -----------------------------------------------------------------
   /accounts/account{id}:
     get:
@@ -34,6 +31,7 @@ paths:
         - Account Module
       summary: Account API
       description: API for a single Account
+      operationId: getAccount
       parameters:
         - in: path
           name: id
@@ -47,39 +45,76 @@ paths:
           description: Account retrieved successfully
           schema:
             $ref: "#/definitions/Account"
-        "400":
-          description: Invalid Fields
-        "500":
-          description: Internal Server Error
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # -----------------------------------------------------------------
   /transactions/{accountId}/{dateDebut}/{dateFin}:
     get:
       tags: Transaction Module
       summary: Every Transactions API 
       description: API for fetching every Transactions of a user Account over a specified amount of time
+      operationId: getEveryTransactions
       parameters:
-        # - in: path
-        # name: id
-        # description: ID of Transaction
-        # required: true
-        # type: string
-
-
-
-
+        - in: path
+          name: accountId
+          description: ID of Selected User Account
+          required: true
+          type: string
+        - in: path
+          name: dateDebut
+          description: Starting Day for Selecting Transactions
+          required: true
+          type: string
+        - in: path
+          name: dateFin
+          description: Ending Day for Selecting Transactions
+          required: true
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Transactions loaded successfully
+          schema:
+            $ref: "#/definitions/EveryTransactions"
+        # "400":
+        #   description: Invalid Fields
+        # "500":
+        #   description: Internal Server Error
 # -----------------------------------------------------------------
 /transactions/{accountId}/{transactionId}:
   get:
     tags:
       - Transaction Module
-    summary: Transaction details API
-    description: 
+    summary: Transaction API
+    description: API for Details of a Transaction
+    operationId: getTransaction
     parameters:
-      # - in: path
-      #   name: id
-      #   description: ID of Transaction
-      #   required: true
-      #   type: string
+      - in: path
+        name: accountId
+        description: ID of Selected User Account
+        required: true
+        type: string
+      - in: path
+        name: transactionId
+        description: ID of Selected Transaction
+        required: true
+        type: string
     produces:
       - application/json
     responses:
@@ -87,35 +122,40 @@ paths:
         description: Transactions loaded successfully
         schema:
           $ref: "#/definitions/Transaction"
-      "400":
-        description: Invalid Fields
-      "500":
-        description: Internal Server Error
+      # "400":
+      #   description: Invalid Fields
+      # "500":
+      #   description: Internal Server Error
 # -----------------------------------------------------------------
   patch:
     security:
       - Bearer: []
     tags:
       - Transaction Module
-    summary: Transaction details API
-    description: API for updating a Transaction
+    summary: Transaction Update API
+    description: API for updating a Transaction's Category & Notes
     parameters:
-      - in: path
-        name: id
-        description: ID of Transaction
-        required: true
-        type: string
       - in: header
         type: string
         name: Authorization
         description: Attach Bearer JWT token
         required: true
+      - in: path
+        name: accountId
+        description: ID of Selected User Account
+        required: true
+        type: string
+      - in: path
+        name: transactionId
+        description: ID of Selected Transaction
+        required: true
+        type: string
       - in: body
         name: body
         description: Update transaction category and notes attributes
         required: true
         schema:
-          $ref: "#/definitions/CustomTransaction"
+          $ref: "#/definitions/CustomizeTransaction"
     produces:
       - application/json
     responses:
@@ -160,6 +200,22 @@ definitions:
         type: string
       description:
         type: string
+      transactions:
+        type: object
+# -----------------------------------------------------------------
+  EveryTransactions:
+    type: object
+    properties:
+      id:
+        type: string
+      date:
+        type: string
+      description:
+        type: string
+      amount:
+        type: string
+      balance:
+        type: string
 # -----------------------------------------------------------------
   Transaction:
     type: object
@@ -179,27 +235,8 @@ definitions:
             type: string
           notes:
             type: string
- # transactions:
-      #   type: object
-      #   properties:
-      #     id:
-      #       type: string
-      #     date:
-      #       type: string
-      #     description:
-      #       type: string
-      #     amount:
-      #       type: string
-      #     balance:
-      #       type: string
 # -----------------------------------------------------------------
-
-
-
-
-
-
-  CustomTransaction:
+  CustomizeTransaction:
     type: object
     properties:
       category:
