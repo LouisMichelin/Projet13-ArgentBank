@@ -5,10 +5,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import {
-   getToken,
-   // getUser
-} from "../../redux/selectors";
+import { getToken } from "../../redux/selectors";
 import { setUser } from "../../redux/slices/user/userSlice";
 
 function User() {
@@ -20,9 +17,6 @@ function User() {
    const dispatch = useDispatch();
    const redirect = useNavigate();
    const token = useSelector(getToken);
-   // const user = useSelector(getUser);
-   // console.log("firstname", user.firstName);
-
    // Function
    const profileFetcher = async () => {
       const API_URL = "http://127.0.0.1:3001/api/v1/user/profile";
@@ -46,7 +40,6 @@ function User() {
          )
          .then((response) => {
             if (response.status === 200) {
-               // console.log("data body", response.data.body.firstName);
                dispatch(setUser(response.data.body));
                // DATA
                const prenom = response.data.body.firstName;
