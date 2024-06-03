@@ -57,32 +57,13 @@ paths:
       security:
       - api_key: []
 # -----------------------------------------------------------------
-  /transactions:
-    get:
-      tags:
-        - Transaction Module
-      summary: Every Transactions API 
-      description: API for fetching every single Transactions of a user Account
-      operationId: getEveryTransactions
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: Transactions loaded successfully
-          schema:
-            $ref: "#/definitions/EveryTransactions"
-        "400":
-          description: "Invalid ID supplied"
-        "404":
-          description: "Transactions not found"
-# -----------------------------------------------------------------
   /transactions/{accountId}/{dateDebut}/{dateFin}:
     get:
       tags:
         - Transaction Module
       summary: Transactions Filtered Over Time API
       description: API for fetching every Transactions of a user Account over a specified amount of time
-      operationId: getSelectedTransactions
+      operationId: getAccountTransactions
       parameters:
         - in: path
           name: accountId
@@ -105,7 +86,7 @@ paths:
         "200":
           description: Transactions loaded successfully
           schema:
-            $ref: "#/definitions/SelectedTransactions"
+            $ref: "#/definitions/AccountTransactions"
         "400":
           description: "Invalid ID supplied"
         "404":
@@ -204,27 +185,8 @@ definitions:
     properties:
       accounts:
         type: array
-          xml:
-            wrapped: true
-          items:
-            id:
-              type: string
-            title:
-              type: string
-            balance:
-              type: string
-            description:
-              type: string
-# definitions:
-# EveryAccounts:
-#   type: object
-#   properties:
-#     accounts:
-#       type: "array"
-#       xml:
-#         wrapped: true
-#       items:
-#         type: object              
+        items:
+          type: object          
 # -----------------------------------------------------------------
   Account:
     type: object
@@ -239,34 +201,29 @@ definitions:
         type: string
       transactions:
         type: array
+        items:
+          type: object
 # -----------------------------------------------------------------
-  EveryTransactions:
+  AccountTransactions:
     type: object
     properties:
-      id:
-        type: string
-      description:
-        type: string
-      amount:
-        type: string
-      balance:
-        type: string
-# -----------------------------------------------------------------
-  SelectedTransactions:
-    type: object
-    properties:
-      id:
-        type: string
       accountId:
         type: string
-      date:
-        type: string
-      description:
-        type: string
-      amount:
-        type: string
-      balance:
-        type: string
+      transactions:
+        type: array
+        items:
+          type: object
+          properties:
+            id:
+              type: string
+            date:
+              type: string
+            description:
+              type: string
+            amount:
+              type: string
+            balance:
+              type: string
 # -----------------------------------------------------------------
   Transaction:
     type: object
