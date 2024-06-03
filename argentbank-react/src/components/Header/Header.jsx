@@ -42,7 +42,7 @@ function Header() {
                      </a>
                      <a
                         className="HeaderSignIn"
-                        href="/login"
+                        href="/"
                         onClick={() => clearStorages()}
                      >
                         <FontAwesomeIcon
